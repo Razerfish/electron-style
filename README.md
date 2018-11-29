@@ -5,6 +5,7 @@ An Electron app for the pytorch implementation of neural style. Name is a placeh
 ```
 Python 3.7 64 bit
 Node JS 8.12
+CUDA 9.0 (for gpu support)
 ```
 
 # Getting Started
