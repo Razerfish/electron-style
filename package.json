@@ -1,0 +1,22 @@
+{
+  "name": "pytorch-neural-style-gui",
+  "version": "0.0.0",
+  "description": "An Electron app for the Pytorch implementation of neural style.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Razerfish/pytorch-neural-style-gui.git"
+  },
+  "author": "Alec Wilson",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/Razerfish/pytorch-neural-style-gui/issues"
+  },
+  "homepage": "https://github.com/Razerfish/pytorch-neural-style-gui#readme",
+  "devDependencies": {
+    "electron": "^3.0.10"
+  }
+}
