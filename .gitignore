@@ -66,7 +66,13 @@ typings/
 #Compiled Python scripts
 *.pyc
 
+#Pyinstaller spec files
+*.spec
+
 #Neural Style inputs and outputs
 *.jpg
 *.png
 *.pth
+
+#All files in Assets/Executables
+Assets/Executables/*
