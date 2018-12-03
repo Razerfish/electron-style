@@ -4,7 +4,11 @@
   "description": "An Electron app for the Pytorch implementation of neural style.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "prestart": "node Tools\\prestart.js",
+    "compile-neural-style": "pyinstaller Assets\\Scripts\\neural_style\\neural_style.py --onedir --noconsole --paths Assets\\Scripts\\neural_style --workpath Assets\\Executables\\build --distpath Assets\\Executables --noconfirm",
+    "precompile-neural-style": "node Tools\\precompile-neural-style.js",
+    "postcompile-neural-style": "node Tools\\postcompile-neural-style.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +21,7 @@
   },
   "homepage": "https://github.com/Razerfish/pytorch-neural-style-gui#readme",
   "devDependencies": {
-    "electron": "^3.0.10"
+    "electron": "^3.0.10",
+    "rimraf": "^2.6.2"
   }
 }
