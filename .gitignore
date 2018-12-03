@@ -76,3 +76,6 @@ typings/
 
 #All files in Assets/Executables
 Assets/Executables/*
+
+#VSCode launch.json
+launch.json
