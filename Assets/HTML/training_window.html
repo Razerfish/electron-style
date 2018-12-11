@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Training</title>
+        <link rel="stylesheet", href="../CSS/training.css">
+    </head>
+    <body>
+        <div id="main_container">
+            <h1 id="dataBox"></h1>
+            <h1 id="infoBox"></h1>
+        </div>
+        <script>
+            const execFile = require('child_process').execFile;
+            const dataBox = document.getElementById("dataBox");
+
+            function manage(data) {
+                if (data["type"] === "status_update") {
+                    dataBox.innerHTML = "Status: " + data["status"];
+                } else if (data["type"] === "dataset_info") {
+                    global.dataset = data["dataset_length"];
+                    dataBox.innerHTML = "Dataset length: " + dataset;
+                } else if (data["type"] === "training_progress") {
+                    dataBox.innerHTML = "Progress: " + data["progress"] + "/" + dataset + " " + data["percent"] + "%";
+                } else {
+                    dataBox.innerHTML = "Unknown type: " + data["type"];
+                }
+            }
+
+            const args = {
+                "subcommand":"train",
+                "dataset":".\\Testing_Assets\\dataset",
+                "style_image":".\\Testing_Assets\\style_image.jpg",
+                "save_model_dir":"C:\\Users\\tigge\\Desktop\\Models",
+                "name":"Test_Model.jpg",
+                "cuda":1
+            }
+
+            const train_process = execFile("Assets\\Executables\\neural_style\\neural_style.exe", [JSON.stringify(args)]);
+            console.log(train_process);
+
+            train_process.stdout.on('data', (data) => {
+                try {
+                    manage(JSON.parse(data.toString()));
+                    if (train_process.stdin.writable) {
+                        train_process.stdin.write("ready\n");
+                    } else {
+                        console.error("stdin is not writable");
+                    }
+                } catch (e) {
+                    console.error(e + " with: " + data.toString());
+                }
+            });
+
+            train_process.stderr.on('data', (data) => {
+                console.error(data.toString());
+            });
+
+            train_process.on('exit', (code) => {
+                console.log("neural style exited with code: " + code.toString());
+                if (code == 1) {
+                    document.getElementById("infoBox").innerHTML = "Fatal Error";
+                } else {
+                    document.getElementById("infoBox").innerHTML = "Done!";
+                }
+            });
+        </script>
+    </body>
+</html>
