@@ -31,7 +31,7 @@
                 "subcommand":"train",
                 "dataset":".\\Testing_Assets\\dataset",
                 "style_image":".\\Testing_Assets\\style_image.jpg",
-                "save_model_dir":"C:\\Users\\tigge\\Desktop\\Models",
+                "save_model_dir":require('path').join(require('os').homedir(), 'Desktop') + "\\Models",
                 "name":"Test_Model",
                 "cuda":1
             }
