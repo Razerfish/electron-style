@@ -12,20 +12,10 @@
         </div>
         <script>
             const execFile = require('child_process').execFile;
-            const dataBox = document.getElementById("dataBox");
+            const manage = require("../../Tools").manage;
 
-            function manage(data) {
-                if (data["type"] === "status_update") {
-                    dataBox.innerHTML = "Status: " + data["status"];
-                } else if (data["type"] === "dataset_info") {
-                    global.dataset = data["dataset_length"];
-                    dataBox.innerHTML = "Dataset length: " + dataset;
-                } else if (data["type"] === "training_progress") {
-                    dataBox.innerHTML = "Progress: " + data["progress"] + "/" + dataset + " " + data["percent"] + "%";
-                } else {
-                    dataBox.innerHTML = "Unknown type: " + data["type"];
-                }
-            }
+            const dataBox = document.getElementById("dataBox");
+            const infoBox = document.getElementById("infoBox");
 
             const args = {
                 "subcommand":"train",
@@ -41,7 +31,7 @@
 
             train_process.stdout.on('data', (data) => {
                 try {
-                    manage(JSON.parse(data.toString()));
+                    manage(JSON.parse(data.toString()), dataBox);
                     if (train_process.stdin.writable) {
                         train_process.stdin.write("ready\n");
                     } else {
@@ -59,9 +49,9 @@
             train_process.on('exit', (code) => {
                 console.log("neural style exited with code: " + code.toString());
                 if (code == 1) {
-                    document.getElementById("infoBox").innerHTML = "Fatal Error";
+                    infoBox.innerHTML = "Fatal Error";
                 } else {
-                    document.getElementById("infoBox").innerHTML = "Done!";
+                    infoBox.innerHTML = "Done!";
                 }
             });
         </script>
