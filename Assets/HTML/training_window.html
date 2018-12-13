@@ -47,7 +47,7 @@
 
             train_process.on('exit', (code) => {
                 console.log("neural style exited with code: " + code.toString());
-                if (code == 1) {
+                if (code != 0) {
                     infoBox.innerHTML = "Fatal Error";
                 } else {
                     infoBox.innerHTML = "Done!";
