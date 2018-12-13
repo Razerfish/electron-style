@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Stylize</title>
+    </head>
+    <body>
+        <div id="main_container">
+            <h1 id="dataBox"></h1>
+            <h1 id="infoBox"></h1>
+        </div>
+        <script>
+            const execFile = require('child_process').execFile;
+            const manage = require('../../Tools').manage;
+
+            const dataBox = document.getElementById("dataBox");
+            const infoBox = document.getElementById("infoBox");
+
+            const args = {
+                "subcommand":"eval",
+                "content_image":".\\Testing_Assets\\content.jpg",
+                "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
+                "model":".\\Testing_Assets\\model.pth",
+                "cuda":1
+            }
+
+            const style_process = execFile("Assets\\Executables\\neural_style\\neural_style.exe", [JSON.stringify(args)]);
+            console.log(style_process);
+
+            style_process.stdout.on('data', (data) => {
+                try {
+                    manage(JSON.parse(data.toString()), dataBox);
+                    if (style_process.stdin.writable) {
+                        style_process.stdin.write("ready\n");
+                    } else {
+                        console.error("stdin is not writable");
+                    }
+                } catch (e) {
+                    console.error(e + " with: " + data.toString());
+                }
+            });
+
+            style_process.stderr.on('data', (data) => {
+                console.error(data.toString());
+            });
+
+            style_process.on('exit', (code) => {
+                console.log("neural style exited with code: " + code.toString());
+                if (code != 0) {
+                    infoBox.innerHTML = "Fatal Error";
+                } else {
+                    infoBox.innerHTML = "Done";
+                }
+            });
+        </script>
+    </body>
+</html>
