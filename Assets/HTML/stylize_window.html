@@ -24,7 +24,7 @@
                 "cuda":1
             }
 
-            const style_process = execFile("Assets\\Executables\\neural_style\\neural_style.exe", [JSON.stringify(args)]);
+            const style_process = execFile("Assets\\bin\\neural_style\\neural_style.exe", [JSON.stringify(args)]);
             console.log(style_process);
 
             style_process.stdout.on('data', (data) => {

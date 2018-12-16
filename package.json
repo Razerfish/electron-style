@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "prestart": "node Tools\\prestart.js",
-    "compile-neural-style": "pyinstaller Assets\\Scripts\\neural_style\\neural_style.py --onedir --noconsole --paths Assets\\Scripts\\neural_style --workpath Assets\\Executables\\build --distpath Assets\\Executables --noconfirm",
+    "compile-neural-style": "pyinstaller Assets\\Scripts\\neural_style\\neural_style.py --onedir --noconsole --paths Assets\\Scripts\\neural_style --workpath Assets\\bin\\build --distpath Assets\\bin --noconfirm",
     "precompile-neural-style": "node Tools\\precompile-neural-style.js",
     "postcompile-neural-style": "node Tools\\postcompile-neural-style.js"
   },
