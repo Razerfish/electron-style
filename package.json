@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/Razerfish/pytorch-neural-style-gui#readme",
   "devDependencies": {
+    "electron": "^3.0.12",
+    "electron-packager": "^13.0.1",
     "rimraf": "^2.6.2"
   },
-  "dependencies": {
-    "electron": "^3.0.10"
-  }
+  "dependencies": {}
 }
