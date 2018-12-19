@@ -79,3 +79,6 @@ Assets/bin/*
 
 #VSCode launch.json
 launch.json
+
+#Release builds
+release-builds/*
