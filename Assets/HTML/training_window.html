@@ -18,14 +18,14 @@
 
             const args = {
                 "subcommand":"train",
-                "dataset":".\\Testing_Assets\\dataset",
-                "style_image":".\\Testing_Assets\\style_image.jpg",
+                "dataset":"resources/app.asar.unpacked/Testing_Assets/dataset",
+                "style_image":"resources/app.asar.unpacked/Testing_Assets/style_image.jpg",
                 "save_model_dir":require('path').join(require('os').homedir(), 'Desktop') + "\\Models",
                 "name":"Test_Model",
                 "cuda":1
             }
 
-            const train_process = execFile("Assets\\bin\\neural_style\\neural_style.exe", [JSON.stringify(args)]);
+            const train_process = execFile("resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
             console.log(train_process);
 
             train_process.stdout.on('data', (data) => {

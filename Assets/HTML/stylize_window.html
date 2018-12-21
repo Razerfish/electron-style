@@ -18,13 +18,13 @@
 
             const args = {
                 "subcommand":"eval",
-                "content_image":".\\Testing_Assets\\content.jpg",
+                "content_image":"resources/app.asar.unpacked/Testing_Assets/content.jpg",
                 "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
-                "model":".\\Testing_Assets\\model.pth",
+                "model":"resources/app.asar.unpacked/Testing_Assets/model.pth",
                 "cuda":1
             }
 
-            const style_process = execFile("Assets\\bin\\neural_style\\neural_style.exe", [JSON.stringify(args)]);
+            const style_process = execFile("resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
             console.log(style_process);
 
             style_process.stdout.on('data', (data) => {
