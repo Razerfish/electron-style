@@ -12,20 +12,42 @@
         <script>
             const execFile = require('child_process').execFile;
             const manage = require('../../Tools').manage;
+            const isDev = require('../../Tools').isDev();
 
             const dataBox = document.getElementById("dataBox");
             const infoBox = document.getElementById("infoBox");
 
-            const args = {
+            let args;
+
+            if (isDev) {
+                console.log("In development environment");
+                args = {
+                    "subcommand":"eval",
+                    "content_image":"./Testing_Assets/content.jpg",
+                    "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
+                    "model":"./Testing_Assets/model.pth",
+                    "cuda":"1"
+                }
+            } else {
+                console.log("In release environment")
+                args = {
                 "subcommand":"eval",
                 "content_image":"resources/app.asar.unpacked/Testing_Assets/content.jpg",
                 "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
                 "model":"resources/app.asar.unpacked/Testing_Assets/model.pth",
                 "cuda":1
+                }
             }
 
-            const style_process = execFile("resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
-            console.log(style_process);
+            let style_process;
+
+            if (isDev) {
+                style_process = execFile("./Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
+                console.log(style_process);
+            } else {
+                style_process = execFile("resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
+                console.log(style_process);
+            }
 
             style_process.stdout.on('data', (data) => {
                 try {

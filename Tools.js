@@ -10,5 +10,9 @@ module.exports = {
         } else {
             dataBox.innerHTML = "Unknown type: " + data["type"];
         }
+    },
+
+    isDev: function() {
+        return process.mainModule.filename.indexOf('app.asar') === -1;
     }
 };

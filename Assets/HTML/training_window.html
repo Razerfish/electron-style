@@ -12,21 +12,44 @@
         <script>
             const execFile = require('child_process').execFile;
             const manage = require('../../Tools').manage;
+            const isDev = require('../../Tools').isDev();
 
             const dataBox = document.getElementById("dataBox");
             const infoBox = document.getElementById("infoBox");
 
-            const args = {
+            let args = {}
+
+            if (isDev) {
+                console.log("In development environment")
+                args = {
+                    "subcommand":"train",
+                    "dataset":"./Testing_Assets/dataset",
+                    "style_image":"./Testing_Assets/style_image.jpg",
+                    "save_model_dir":require('path').join(require('os').homedir(), 'Desktop') + "\\Models",
+                    "name":"Test_Model",
+                    "cuda":1
+                }
+            } else {
+                console.log("In release environment")
+                args = {
                 "subcommand":"train",
                 "dataset":"resources/app.asar.unpacked/Testing_Assets/dataset",
                 "style_image":"resources/app.asar.unpacked/Testing_Assets/style_image.jpg",
                 "save_model_dir":require('path').join(require('os').homedir(), 'Desktop') + "\\Models",
                 "name":"Test_Model",
                 "cuda":1
+                }
             }
 
-            const train_process = execFile("resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
-            console.log(train_process);
+            let train_process;
+
+            if (isDev) {
+                train_process = execFile("./Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
+                console.log(train_process);
+            } else {
+                train_process = execFile("resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
+                console.log(train_process);
+            }
 
             train_process.stdout.on('data', (data) => {
                 try {
