@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Stylize</title>
+    </head>
+    <body>
+        <div id="main_container">
+            <h1 id="dataBox"></h1>
+            <h1 id="infoBox"></h1>
+        </div>
+        <script>
+            const execFile = require('child_process').execFile;
+            const manage = require('../../Tools').manage;
+            const isDev = require('../../Tools').isDev();
+
+            const dataBox = document.getElementById("dataBox");
+            const infoBox = document.getElementById("infoBox");
+
+            let args;
+
+            if (isDev) {
+                console.log("In development environment");
+                args = {
+                    "subcommand":"eval",
+                    "content_image":"./Testing_Assets/content.jpg",
+                    "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
+                    "model":"./Testing_Assets/model.pth",
+                    "cuda":"1"
+                }
+            } else {
+                console.log("In release environment")
+                args = {
+                "subcommand":"eval",
+                "content_image":"resources/app.asar.unpacked/Testing_Assets/content.jpg",
+                "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
+                "model":"resources/app.asar.unpacked/Testing_Assets/model.pth",
+                "cuda":1
+                }
+            }
+
+            let style_process;
+
+            if (isDev) {
+                style_process = execFile("./Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
+                console.log(style_process);
+            } else {
+                style_process = execFile("resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
+                console.log(style_process);
+            }
+
+            style_process.stdout.on('data', (data) => {
+                try {
+                    manage(JSON.parse(data.toString()), dataBox);
+                    if (style_process.stdin.writable) {
+                        style_process.stdin.write("ready\n");
+                    } else {
+                        console.error("stdin is not writable");
+                    }
+                } catch (e) {
+                    console.error(e + " with: " + data.toString());
+                }
+            });
+
+            style_process.stderr.on('data', (data) => {
+                console.error(data.toString());
+            });
+
+            style_process.on('exit', (code) => {
+                console.log("neural style exited with code: " + code.toString());
+                if (code != 0) {
+                    infoBox.innerHTML = "Fatal Error";
+                } else {
+                    infoBox.innerHTML = "Done";
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -75,7 +75,10 @@ typings/
 *.pth
 
 #All files in Assets/Executables
-Assets/Executables/*
+Assets/bin/*
 
 #VSCode launch.json
 launch.json
+
+#Release builds
+release-builds/*
