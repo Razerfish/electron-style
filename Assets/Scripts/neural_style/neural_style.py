@@ -251,7 +251,7 @@ def stylize_onnx_caffe2(content_image, args):
 
 
 def main():
-    args = utils.json2args(json.loads(sys.argv[1]))
+    args = utils.InputArgs(json.loads(sys.argv[1]))
     if args.subcommand is None:
         sys.exit("FATAL: Subcommand is None")
     if args.cuda and not torch.cuda.is_available():

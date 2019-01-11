@@ -63,7 +63,7 @@ def normalize_batch(batch):
     batch = batch.div_(255.0)
     return (batch - mean) / std
 
-class json2args():
+class InputArgs():
     def __init__(self, data):
         #Report status
         log(json.dumps({
@@ -71,7 +71,7 @@ class json2args():
             "status":"Parsing args"
         }))
 
-        is_cuda = torch.cuda.is_available()
+        cuda_available = torch.cuda.is_available()
 
         if data["subcommand"] == "eval":
             self.subcommand = "eval"
@@ -93,7 +93,7 @@ class json2args():
             else:
                 sys.exit("FATAL: Model file could not be found")
 
-            if is_cuda:
+            if cuda_available:
                 self.cuda = int(data["cuda"])
             else:
                 self.cuda = 0
@@ -148,7 +148,7 @@ class json2args():
             except KeyError:
                 self.style_size = None
 
-            if is_cuda:
+            if cuda_available:
                 self.cuda = int(data["cuda"])
             else:
                 self.cuda = 0
