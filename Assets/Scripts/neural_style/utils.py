@@ -71,6 +71,8 @@ class json2args():
             "status":"Parsing args"
         }))
 
+        is_cuda = torch.cuda.is_available()
+
         if data["subcommand"] == "eval":
             self.subcommand = "eval"
 
@@ -91,7 +93,10 @@ class json2args():
             else:
                 sys.exit("FATAL: Model file could not be found")
 
-            self.cuda = int(data["cuda"])
+            if is_cuda:
+                self.cuda = int(data["cuda"])
+            else:
+                self.cuda = 0
 
             try:
                 self.export_onnx = str(data["export_onnx"])
@@ -143,7 +148,10 @@ class json2args():
             except KeyError:
                 self.style_size = None
 
-            self.cuda = int(data["cuda"])
+            if is_cuda:
+                self.cuda = int(data["cuda"])
+            else:
+                self.cuda = 0
 
             try:
                 self.seed = int(data["seed"])
