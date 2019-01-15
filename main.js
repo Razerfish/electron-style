@@ -1,6 +1,6 @@
 const electron = require('electron');
 
-const {app, BrowserWindow, Menu, ipcMain} = electron;
+const {app, BrowserWindow, Menu, MenuItem, ipcMain} = electron;
 
 let mainWindow;
 
@@ -16,11 +16,18 @@ app.on('ready', function() {
         height: 700
     });
 
+    // Set custom menu
+    
+    Menu.setApplicationMenu(Menu.buildFromTemplate([
+        {
+            label: "Toggle Devtools",
+            accelerator: 'F12',
+            click: () => {mainWindow.webContents.toggleDevTools();}
+        }
+    ]));
+
     // Load html
     mainWindow.loadFile('./Assets/HTML/mode_select_window.html');
-
-    // Open DevTools
-    // mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', function() {
         app.quit();
