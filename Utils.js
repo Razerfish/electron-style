@@ -1,5 +1,5 @@
 module.exports = {
-    manage: function(data, dataBox) {
+    parse_data: function(data, dataBox) {
         if (data["type"] === "status_update") {
             dataBox.innerHTML = "Status: " + data["status"];
         } else if (data["type"] === "dataset_info") {

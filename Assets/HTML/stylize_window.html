@@ -11,7 +11,7 @@
         </div>
         <script>
             const execFile = require('child_process').execFile;
-            const manage = require('../../Utils').manage;
+            const parse_data = require('../../Utils').parse_data;
             const isDev = require('../../Utils').isDev();
 
             const dataBox = document.getElementById("dataBox");
@@ -51,7 +51,7 @@
 
             style_process.stdout.on('data', (data) => {
                 try {
-                    manage(JSON.parse(data.toString()), dataBox);
+                    parse_data(JSON.parse(data.toString()), dataBox);
                     if (style_process.stdin.writable) {
                         style_process.stdin.write("ready\n");
                     } else {
