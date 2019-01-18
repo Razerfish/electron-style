@@ -7,6 +7,8 @@ module.exports = {
             dataBox.innerHTML = "Dataset length: " + dataset;
         } else if (data["type"] === "training_progress") {
             dataBox.innerHTML = "Progress: " + data["progress"] + "/" + dataset + " " + data["percent"] + "%";
+        } else if (data["type"] === "log") {
+            console.log(data["message"]);
         } else {
             dataBox.innerHTML = "Unknown type: " + data["type"];
         }
