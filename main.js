@@ -27,7 +27,7 @@ app.on('ready', function() {
     ]));
 
     // Load html
-    mainWindow.loadFile('./Assets/HTML/mode_select_window.html');
+    mainWindow.loadFile('./Assets/HTML/mode_select.html');
 
     mainWindow.on('closed', function() {
         app.quit();
