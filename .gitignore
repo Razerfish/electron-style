@@ -66,9 +66,6 @@ typings/
 #Compiled Python scripts
 *.pyc
 
-#Pyinstaller spec files
-*.spec
-
 #Neural Style inputs and outputs
 *.jpg
 *.png
