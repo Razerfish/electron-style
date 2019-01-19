@@ -91,18 +91,18 @@ function pip_to_json(data) {
 }
 
 function check_installed(installed, required) {
-    var compatible = true;
+    var is_compatible = true;
     for (i = 0; i < required.length; i++) {
         for (j = 0; j < installed.length; j++) {
             if (required[i]["name"] == installed[j]["name"]) {
                 var version_data = versionCompare(required[i]["version"], installed[j]["version"]);
                 if (!(version_data === 0 || version_data === -1)) {
-                    compatible = false;
+                    is_compatible = false;
                 }
             }
         }
     }
-    return compatible;
+    return is_compatible;
 }
 
 const required_packages = [
