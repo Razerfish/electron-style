@@ -16,5 +16,32 @@ module.exports = {
 
     isDev: function() {
         return process.mainModule.filename.indexOf('app.asar') === -1;
+    },
+
+    isCUDA: function() {
+        const execFile = require('child_process').execFile;
+        const isDev = require('./Utils.js').isDev();
+
+        let path;
+        if (isDev) {
+            path = "./Assets/bin/neural_style/check_cuda.exe";
+        } else {
+            path = "./resources/app.asar.unpacked/Assets/bin/neural_style/check_cuda.exe";
+        }
+
+        const get_CUDA = execFile(path, []);
+
+        get_CUDA.stdout.on('data', (data) => {
+            data = JSON.parse(data.toString());
+            if (data["cuda_available"] === "True") {
+                console.log("CUDA is available.");
+            } else {
+                console.log("CUDA is not available.");
+            }
+        });
+
+        get_CUDA.stderr.on('data', (data) => {
+            console.error(data.toString());
+        });
     }
 };
