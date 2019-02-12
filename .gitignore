@@ -79,3 +79,6 @@ launch.json
 
 #Release builds
 release-builds/*
+
+#Python virtual environments
+env/*
