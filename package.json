@@ -6,11 +6,11 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "prestart": "node Tools\\prestart.js",
-    "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets\\bin\\Builds --distpath=Assets\\bin",
-    "precompile": "node Tools\\precompile.js",
-    "prepackage": "node Tools\\prepackage.js",
-    "package": "electron-packager . pytorch-neural-style-gui --overwrite --asar.unpackDir=\"{Assets\\bin,Testing_Assets}\" --ignore=\".gitignore|.vscode|release-builds|requirements.txt|Test.js|Testing_Assets.zip|Assets/Scripts|Assets/bin/Builds\" --platform=win32 --arch=ia32 --prune=true --out release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Pytorch Neural Style\""
+    "prestart": "node Tools/prestart.js",
+    "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets/bin/Builds --distpath=Assets/bin",
+    "precompile": "node Tools/precompile.js",
+    "prepackage": "node Tools/prepackage.js",
+    "package": "electron-packager . pytorch-neural-style-gui --overwrite --asar.unpackDir=\"{Assets/bin,Testing_Assets}\" --ignore=\".gitignore|.vscode|release-builds|requirements.txt|Test.js|Testing_Assets.zip|Assets/Scripts|Assets/bin/Builds\" --platform=win32 --arch=ia32 --prune=true --out release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Pytorch Neural Style\""
   },
   "repository": {
     "type": "git",
