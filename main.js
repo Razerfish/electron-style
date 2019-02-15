@@ -4,11 +4,6 @@ const {app, BrowserWindow, Menu, MenuItem, ipcMain} = electron;
 
 let mainWindow;
 
-function load_training() {
-    // Load html
-    mainWindow.loadFile('./Assets/HTML/training_window.html');
-};
-
 app.on('ready', function() {
     // Create new browser window.
     mainWindow = new BrowserWindow({
@@ -27,7 +22,7 @@ app.on('ready', function() {
     ]));
 
     // Load html
-    mainWindow.loadFile('./Assets/HTML/mode_select.html');
+    mainWindow.loadFile('./Assets/HTML/index.html');
 
     mainWindow.on('closed', function() {
         app.quit();
