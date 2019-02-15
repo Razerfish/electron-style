@@ -1,9 +1,9 @@
 @echo off
 
 for /f "delims=" %%i in ('python -V') do set python=%%i
-set python=%python:~0,6%
+set python=%python:~0,10%
 
-if /I %python% == Python (
+if /I "%python%" == "Python 3.7" (
     if EXIST env\\pyvenv.cfg (
         echo Python virtual environment already exists, if there's something wrong with it delete it and run setup again.
     ) else (
@@ -14,5 +14,5 @@ if /I %python% == Python (
         pip install -r requirements.txt
     )
 ) else (
-    echo "Python not found. Is it installed and added to PATH?"
+    echo "Python 3.7 not found. Is it installed and added to PATH?"
 )
