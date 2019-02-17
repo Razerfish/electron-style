@@ -20,7 +20,7 @@ module.exports = {
 
     isCUDA: function() {
         const execFile = require('child_process').execFile;
-        const isDev = require('./Utils.js').isDev();
+        const isDev = module.exports.isDev();
 
         let path;
         if (isDev) {
@@ -30,18 +30,23 @@ module.exports = {
         }
 
         const get_CUDA = execFile(path, []);
+        let cuda;
 
         get_CUDA.stdout.on('data', (data) => {
             data = JSON.parse(data.toString());
             if (data["cuda_available"] === "True") {
                 console.log("CUDA is available.");
+                cuda = true;
             } else {
                 console.log("CUDA is not available.");
+                cuda = false;
             }
         });
 
         get_CUDA.stderr.on('data', (data) => {
             console.error(data.toString());
+            console.error("Assuming that CUDA is unavailable.");
+            cuda = false;
         });
     }
 };
