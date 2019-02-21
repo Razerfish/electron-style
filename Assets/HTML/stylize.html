@@ -53,7 +53,7 @@
                 try {
                     parse_data(JSON.parse(data.toString()), dataBox);
                     if (style_process.stdin.writable) {
-                        style_process.stdin.write("ready\n");
+                        style_process.stdin.write("\n");
                     } else {
                         console.error("stdin is not writable");
                     }
