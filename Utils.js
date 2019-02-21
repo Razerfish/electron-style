@@ -1,16 +1,16 @@
 module.exports = {
-    parse_data: function(data, dataBox) {
+    parse_data: function(data) {
         if (data["type"] === "status_update") {
-            dataBox.innerHTML = "Status: " + data["status"];
+            return "Status: " + data["status"];
         } else if (data["type"] === "dataset_info") {
             global.dataset = data["dataset_length"];
-            dataBox.innerHTML = "Dataset length: " + dataset;
+            return "Dataset length: " + dataset;
         } else if (data["type"] === "training_progress") {
-            dataBox.innerHTML = "Progress: " + data["progress"] + "/" + dataset + " " + data["percent"] + "%";
+            return "Progress: " + data["progress"] + "/" + dataset + " " + data["percent"] + "%";
         } else if (data["type"] === "log") {
             console.log(data["message"]);
         } else {
-            dataBox.innerHTML = "Unknown type: " + data["type"];
+            return "Unknown type: " + data["type"];
         }
     },
 
