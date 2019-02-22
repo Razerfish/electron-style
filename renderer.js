@@ -19,28 +19,34 @@ function create_neural_style(args) {
 }
 
 function isCUDA() {
-    const execFile = require("child_process").execFile;
+    return new Promise((resolve, reject) => {
+        const execFile = require("child_process").execFile;
     
-    let get_CUDA;
-    if (isDev()) {
-        get_CUDA = execFile("./Assets/bin/neural_style/check_cuda.exe");
-    } else {
-        get_CUDA = execFile("./resources/app.asar.unpacked/Assets/bin/neural_style/check_cuda.exe");
-    }
-    
-    get_CUDA.stdout.on('data', (data) => {
-        data = JSON.parse(data.toString());
-        if (data["cuda_available"] === "True") {
-            console.log("CUDA is available");
-            return true;
+        let get_CUDA;
+        if (isDev()) {
+            get_CUDA = execFile("./Assets/bin/neural_style/check_cuda.exe");
         } else {
-            console.log("CUDA is not available");
-            return false;
+            get_CUDA = execFile("./resources/app.asar.unpacked/Assets/bin/neural_style/check_cuda.exe");
         }
-    });
+        
+        get_CUDA.stderr.on('data', (data) => {
+            reject(data.toString());
+        });
 
-    // Alert the child process that we're ready for output.
-    get_CUDA.stdin.write("\n");
+        get_CUDA.stdout.on('data', (data) => {
+            data = JSON.parse(data.toString());
+            if (data["cuda_available"] === "True") {
+                console.log("CUDA is available");
+                resolve(true);
+            } else {
+                console.log("CUDA is not available");
+                resolve(false);
+            }
+        });
+    
+        // Alert the child process that we're ready for output.
+        get_CUDA.stdin.write("\n");
+    });
 }
 
 function parse_data(data) {
