@@ -36,10 +36,8 @@ function isCUDA() {
         get_CUDA.stdout.on('data', (data) => {
             data = JSON.parse(data.toString());
             if (data["cuda_available"] === "True") {
-                console.log("CUDA is available");
                 resolve(true);
             } else {
-                console.log("CUDA is not available");
                 resolve(false);
             }
         });
