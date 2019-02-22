@@ -4,8 +4,11 @@ function isDev() {
 }
 
 function create_neural_style(args) {
-    /* Creates a subprocess and passes the given args to it.
-    Uses a different binary depending on whether or not it is running in a development environment. */
+    /*
+    Creates a subprocess and passes the given args to it.
+    Uses a different binary depending on whether or not it is running in a development environment.
+    The process starts paused, to start it write '\n' to stdin.
+    */
     const execFile = require('child_process').execFile;
 
     if (isDev()) {
@@ -35,6 +38,9 @@ function isCUDA() {
             return false;
         }
     });
+
+    // Alert the child process that we're ready for output.
+    get_CUDA.stdin.write("\n");
 }
 
 function parse_data(data) {
