@@ -1,10 +1,45 @@
 <!Doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Neural Style</title>
-        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-        <script src="jquery-3.3.1.min.js"></script>
-        <script>if (window.module) module = window.module;</script>
-    </head>
+
+<head>
+    <meta charset="utf-8">
+    <title>Neural Style</title>
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="../../Utils.js"></script>
+    <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" href="../CSS/index.css">
+
+    <script>
+        $(document).ready(function () {
+            $("#train_button, #stylize_button").click(function () {
+                $("#mode_select").hide();
+            });
+            $("#train_button").click(function () {
+                $("#mode_select").hide();
+                $("#training").show();
+            });
+            $("#stylize_button").click(function () {
+                $("#mode_select > *").hide();
+                $("#stylize").show();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id='mode_select'>
+        <button class='grid_item' id='train_button'>Train</button>
+        <button class='grid_item' id='stylize_button'>Stylize</button>
+    </div>
+
+    <div id="training" style="display: none;">
+        <h1>Training</h1>
+    </div>
+
+    <div id="stylize" style="display: none;">
+        <h1>Stylize</h1>
+    </div>
+</body>
+
 </html>
