@@ -61,3 +61,40 @@ function parse_data(data) {
         return "Unknown type: " + data["type"];
     }
 }
+
+$(document).ready(function () {
+    $("#train_button, #stylize_button").click(function () {
+        $("#mode_select").hide();
+    });
+    $("#train_button").click(function () {
+        $("#mode_select").hide();
+        $("#training").show();
+
+        let args;
+        if (isDev()) {
+            args = {
+                "subcommand":"train",
+                "dataset":"./Testing_Assets/dataset",
+                "style_image":"./Testing_Assets/style_image.jpg",
+                "save_model_dir":require('path').join(require('os').homedir(), 'Desktop') + "\\Models",
+                "name":"Test_Model",
+                "cuda":1
+            }
+        } else {
+            args = {
+                "subcommand":"train",
+                "dataset":"resources/app.asar.unpacked/Testing_Assets/dataset",
+                "style_image":"resources/app.asar.unpacked/Testing_Assets/style_image.jpg",
+                "save_model_dir":require('path').join(require('os').homedir(), 'Desktop') + "\\Models",
+                "name":"Test_Model",
+                "cuda":1
+            }
+        }
+
+        
+    });
+    $("#stylize_button").click(function () {
+        $("#mode_select > *").hide();
+        $("#stylize").show();
+    });
+});

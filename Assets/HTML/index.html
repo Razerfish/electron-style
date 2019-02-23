@@ -6,24 +6,11 @@
     <title>Neural Style</title>
     <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
     <script src="jquery-3.3.1.min.js"></script>
-    <script src="../../Utils.js"></script>
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" href="../CSS/index.css">
 
     <script>
-        $(document).ready(function () {
-            $("#train_button, #stylize_button").click(function () {
-                $("#mode_select").hide();
-            });
-            $("#train_button").click(function () {
-                $("#mode_select").hide();
-                $("#training").show();
-            });
-            $("#stylize_button").click(function () {
-                $("#mode_select > *").hide();
-                $("#stylize").show();
-            });
-        });
+        require('../../renderer.js');
     </script>
 </head>
 
@@ -34,7 +21,8 @@
     </div>
 
     <div id="training" style="display: none;">
-        <h1>Training</h1>
+        <h1 id="training_databox"></h1>
+        <h1 id="training_infobox"></h1>
     </div>
 
     <div id="stylize" style="display: none;">
