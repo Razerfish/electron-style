@@ -9,7 +9,7 @@ if /I "%python%" == "Python 3.7" (
     ) else (
         python -m venv env
         env\\Scripts\\activate.bat
-        python -m pip install --upgrade pip==19.0.2
+        python -m pip install --upgrade pip
         pip install --upgrade setuptools
         pip install -r requirements.txt
     )
