@@ -1,6 +1,3 @@
-#Wait for parent process to be ready for output
-input()
-
 import os
 import sys
 import time
@@ -20,6 +17,8 @@ from utils import log
 from transformer_net import TransformerNet
 from vgg import Vgg16
 
+#Wait for parent process to be ready for output
+input()
 
 def check_paths(args):
     try:
