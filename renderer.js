@@ -113,6 +113,55 @@ function load_training() {
     neural_style.stdin.write("\n");
 }
 
+function load_stylize() {
+    // This function assumes that mode_select has already been unloaded.
+    $("#stylize").css("display", "block");
+
+    let args;
+    if (isDev()) {
+        args = {
+            "subcommand":"eval",
+            "content_image":"./Testing_Assets/content.jpg",
+            "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
+            "model":"./Testing_Assets/model.pth",
+            "cuda":1
+        }
+    } else {
+        args = {
+            "subcommand":"eval",
+            "content_image":"resources/app.asar.unpacked/Testing_Assets/content.jpg",
+            "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
+            "model":"resources/app.asar.unpacked/Testing_Assets/model.pth",
+            "cuda":1
+        }
+    }
+
+    const neural_style = create_neural_style(args);
+
+    neural_style.stdout.on('data', (data) => {
+        data = parse_data(JSON.parse(data.toString()));
+        $("#stylize_databox").text(data);
+
+        neural_style.stdin.write("\n");
+    });
+
+    neural_style.stderr.on('data', (data) => {
+        console.error(data.toString());
+    });
+
+    neural_style.on('exit', (code) => {
+        console.log("neural style exited with code: " + code.toString());
+        if (!code === 0) {
+            $("#stylize_infobox").text("Fatal Error");
+        } else {
+            $("#stylize_infobox").text("Done");
+        }
+    });
+
+    // Start nerual style
+    neural_style.stdin.write("\n");
+}
+
 $(document).ready(function () {
     $("#train_button, #stylize_button").click(function () {
         $("#mode_select").hide();
@@ -123,6 +172,6 @@ $(document).ready(function () {
     });
     $("#stylize_button").click(function () {
         $("#mode_select > *").hide();
-        $("#stylize").show();
+        load_stylize();
     });
 });
