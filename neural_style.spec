@@ -4,7 +4,7 @@ block_cipher = None
 
 
 neural_style_a = Analysis(['Assets\\Scripts\\neural_style\\neural_style.py'],
-             pathex=['Assets\\Scripts\\neural_style'],
+             pathex=['env\\Lib\\site-packages\\torch\\lib\\', 'C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
              binaries=[],
              datas=[],
              hiddenimports=[],
