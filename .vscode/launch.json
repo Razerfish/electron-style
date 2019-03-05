@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Main Process",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "windows": {
+              "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+            },
+            "args" : ["."]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Currently Open File With Node",
+            "program": "${file}"
+        },
+        {
+            "name": "Python: Terminal (integrated)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Debug Training",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}/Assets/Scripts/neural_style/neural_style.py",
+            "console": "integratedTerminal",
+            "args": ["{\"subcommand\":\"train\", \"dataset\":\"./Testing_Assets/dataset\", \"style_image\":\"./Testing_Assets/style_image.jpg\", \"save_model_dir\":\"./Tests/Models\", \"name\":\"Test_Model\", \"cuda\":1}"]
+        },
+        {
+            "name": "Debug Stylization",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}/Assets/Scripts/neural_style/neural_style.py",
+            "console": "integratedTerminal",
+            "args": ["{\"subcommand\":\"eval\", \"content_image\":\"./Testing_Assets/content.jpg\", \"output_image\":\"./Tests/Test_Output.jpg\", \"model\":\"./Testing_Assets/model.pth\", \"cuda\":1}"]
+        },
+        {
+            "name": "Debug check_cuda",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}/Assets/Scripts/check_cuda/check_cuda.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}
