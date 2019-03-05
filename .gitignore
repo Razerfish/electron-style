@@ -66,16 +66,17 @@ typings/
 #Compiled Python scripts
 *.pyc
 
-#Neural Style inputs and outputs
-*.jpg
-*.png
+#Neural Style models
 *.pth
+
+#All files in the Tests directory
+Tests/*
+
+#Testing assets
+Testing_Assets/*
 
 #All files in Assets/Executables
 Assets/bin/*
-
-#All files in the .vscode directory
-.vscode/*
 
 #Release builds
 release-builds/*
