@@ -125,7 +125,7 @@ function load_stylize() {
             "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
             "model":"./Testing_Assets/model.pth",
             "cuda":1
-        }
+        };
     } else {
         args = {
             "subcommand":"eval",
@@ -133,7 +133,7 @@ function load_stylize() {
             "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
             "model":"resources/app.asar.unpacked/Testing_Assets/model.pth",
             "cuda":1
-        }
+        };
     }
 
     const neural_style = create_neural_style(args);
