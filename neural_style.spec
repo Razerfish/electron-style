@@ -4,7 +4,7 @@ block_cipher = None
 
 
 neural_style_a = Analysis(['Assets\\Scripts\\neural_style\\neural_style.py'],
-             pathex=['env\\Lib\\site-packages\\torch\\lib\\', 'C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
+             pathex=['Assets\\Scripts\\neural_style', 'C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -17,7 +17,7 @@ neural_style_a = Analysis(['Assets\\Scripts\\neural_style\\neural_style.py'],
              noarchive=False)
 
 check_cuda_a = Analysis(['Assets\\Scripts\\check_cuda\\check_cuda.py'],
-             pathex=['Assets\\Scripts\\check_cuda'],
+             pathex=['Assets\\Scripts\\check_cuda', 'C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
              binaries=[],
              datas=[],
              hiddenimports=[],
