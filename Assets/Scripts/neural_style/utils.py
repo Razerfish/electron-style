@@ -5,15 +5,32 @@ import sys
 import os
 import time
 
+# Check if the program is running in attached mode.
+attached = None
+def set_attached(start_conds):
+    global attached
+    attached = start_conds.attached
+
 last = None
 def log(data):
     global last
-    if last is None:
-        print(data, flush=True)
-        last = time.time()
+
+    global attached
+    if attached is None:
+        sys.stderr.write("FATAL: attached has not been set\n")
+        sys.stderr.flush()
+        sys.exit(1)
+
+    if attached:
+        if last is None:
+            print(data, flush=True)
+            last = time.time()
+        else:
+            input()
+            print(data, flush=True)
     else:
-        input()
         print(data, flush=True)
+
 
 def load_image(filename, size=None, scale=None):
     img = Image.open(filename)

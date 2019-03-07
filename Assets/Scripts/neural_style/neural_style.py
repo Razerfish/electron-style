@@ -17,8 +17,21 @@ from utils import log
 from transformer_net import TransformerNet
 from vgg import Vgg16
 
-#Wait for parent process to be ready for output
-input()
+import argparse
+
+parser = argparse.ArgumentParser(description="Runs neural style with the given arguments.")
+parser.add_argument("args", action='store',
+help="Arguments to pass to neural style.")
+
+parser.add_argument("--attached", "-A", action='store_true', dest='attached',
+help="Run the program in attached mode.")
+
+start_conds = parser.parse_args()
+utils.set_attached(start_conds)
+
+# Check if running in attached mode, and if so wait for parent process to be ready for output.
+if start_conds.attached:
+    input()
 
 def check_paths(args):
     try:
@@ -253,11 +266,15 @@ def stylize_onnx_caffe2(content_image, args):
 
 
 def main():
-    args = utils.InputArgs(json.loads(sys.argv[1]))
+    args = utils.InputArgs(json.loads(start_conds.args))
     if args.subcommand is None:
-        sys.exit("FATAL: Subcommand is None")
+        sys.stderr.write("FATAL: Subcommand is None\n")
+        sys.stderr.flush()
+        sys.exit(1)
     if args.cuda and not torch.cuda.is_available():
-        sys.exit("FATAL: CUDA is not available, try running on CPU")
+        sys.stderr.write("FATAL: CUDA is not available, try running on CPU\n")
+        sys.stderr.flush()
+        sys.exit(1)
 
     if args.subcommand == "train":
         check_paths(args)

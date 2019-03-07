@@ -12,9 +12,9 @@ function create_neural_style(args) {
     const execFile = require('child_process').execFile;
 
     if (isDev()) {
-        return execFile("./Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
+        return execFile("./Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
     } else {
-        return execFile("./resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args)]);
+        return execFile("./resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
     }
 }
 
