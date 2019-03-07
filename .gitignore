@@ -83,3 +83,6 @@ release-builds/*
 
 #Python virtual environments
 env/*
+
+#Rope project
+.vscode/.ropeproject/*
