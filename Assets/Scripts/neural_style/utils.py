@@ -11,9 +11,9 @@ def set_attached(start_conds):
     global attached
     attached = start_conds.attached
 
-last = None
+first = True
 def log(data):
-    global last
+    global first
 
     global attached
     if attached is None:
@@ -22,9 +22,9 @@ def log(data):
         sys.exit(1)
 
     if attached:
-        if last is None:
+        if first:
             print(data, flush=True)
-            last = time.time()
+            first = False
         else:
             input()
             print(data, flush=True)
