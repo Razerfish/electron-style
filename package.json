@@ -1,7 +1,7 @@
 {
   "name": "pytorch-neural-style-gui",
   "productName": "Pytorch Neural Style",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "description": "An Electron app for the Pytorch implementation of neural style.",
   "main": "main.js",
   "scripts": {
