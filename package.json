@@ -6,14 +6,27 @@
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
+    "prestart": "node Tools\\prestart.js",
+    "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets\\Builds --distpath=src\\bin",
+    "precompile": "py Tools\\precompile.py",
     "package": "electron-forge package",
+    "prepackage": "node Tools\\prepackage.js",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint src --color"
+    "lint": "eslint src --color",
+    "setup": "Tools\\setup.bat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Razerfish/pytorch-neural-style-gui.git"
   },
   "keywords": [],
   "author": "Alec Wilson",
   "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/Razerfish/pytorch-neural-style-gui/issues"
+  },
+  "homepage": "https://github.com/Razerfish/pytorch-neural-style-gui#readme",
   "config": {
     "forge": {
       "make_targets": {
