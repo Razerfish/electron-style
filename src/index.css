@@ -1,0 +1,36 @@
+body {
+    background-color: white;
+    height: 100%;
+}
+
+#mode_select {
+    display: grid;
+    grid-template-rows: 16.66% 33.33% 33.33% 16.66%;
+    grid-template-columns: 3.84% 30.76% 30.76% 30.76% 3.84%;
+    width: 99vw;
+    height: 95vh;
+}
+
+.grid_item {
+    display: grid;
+    align-self: center;
+    justify-self: center;
+}
+
+#train_button {
+    height: 100%;
+    width: 100%;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+#stylize_button {
+    height: 100%;
+    width: 100%;
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
