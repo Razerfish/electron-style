@@ -12,7 +12,7 @@ function create_neural_style(args) {
     const execFile = require('child_process').execFile;
 
     if (isDev()) {
-        return execFile("./Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
+        return execFile("./src/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
     } else {
         return execFile("./resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
     }
@@ -24,7 +24,7 @@ function isCUDA() {
     
         let get_CUDA;
         if (isDev()) {
-            get_CUDA = execFile("./Assets/bin/neural_style/check_cuda.exe");
+            get_CUDA = execFile("./src/bin/neural_style/check_cuda.exe");
         } else {
             get_CUDA = execFile("./resources/app.asar.unpacked/Assets/bin/neural_style/check_cuda.exe");
         }
