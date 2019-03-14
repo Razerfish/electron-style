@@ -75,8 +75,11 @@ Tests/*
 #Testing assets
 Testing_Assets/*
 
-#All files in Assets/bin
-Assets/bin/*
+#All files in src/bin
+src/bin/*
+
+#Pyinstaller build files
+Assets/pyinstaller-build-files
 
 #Release builds
 release-builds/*
