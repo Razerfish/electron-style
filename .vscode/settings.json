@@ -1,6 +1,6 @@
 {
     "editor.detectIndentation": false,
-    "python.pythonPath": "env\\Scripts\\python.exe",
+    "python.pythonPath": "pyenv\\Scripts\\python.exe",
     "files.exclude": {
         "**/release-builds": true,
         "**/Testing_Assets": true,
