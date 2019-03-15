@@ -50,8 +50,8 @@
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
-        "owner": "",
-        "name": ""
+        "owner": "Razerfish",
+        "name": "pytorch-neural-style-gui"
       },
       "windowsStoreConfig": {
         "packageName": "",
