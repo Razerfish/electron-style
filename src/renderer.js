@@ -1,3 +1,6 @@
+// Ensure that the cwd is correct
+process.chdir(require('path').join(__dirname, "../../.."));
+
 function isDev() {
     // Checks and returns if the main process is running in a development environment or not.
     return process.mainModule.filename.indexOf('app.asar') === -1;
