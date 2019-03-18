@@ -14,7 +14,7 @@ function create_neural_style(args) {
     if (isDev()) {
         return execFile("./src/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
     } else {
-        return execFile("./resources/app.asar.unpacked/Assets/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
+        return execFile("./resources/app.asar.unpacked/src/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
     }
 }
 
@@ -26,7 +26,7 @@ function isCUDA() {
         if (isDev()) {
             get_CUDA = execFile("./src/bin/neural_style/check_cuda.exe");
         } else {
-            get_CUDA = execFile("./resources/app.asar.unpacked/Assets/bin/neural_style/check_cuda.exe");
+            get_CUDA = execFile("./resources/app.asar.unpacked/src/bin/neural_style/check_cuda.exe");
         }
         
         get_CUDA.stderr.on('data', (data) => {
@@ -79,8 +79,8 @@ function load_training() {
     } else {
         args = {
             "subcommand":"train",
-            "dataset":"resources/app.asar.unpacked/Testing_Assets/dataset",
-            "style_image":"resources/app.asar.unpacked/Testing_Assets/style_image.jpg",
+            "dataset":"resources/app.asar.unpacked/Testing_Assets/Testing_Assets/dataset",
+            "style_image":"resources/app.asar.unpacked/Testing_Assets/Testing_Assets/style_image.jpg",
             "save_model_dir":require('path').join(require('os').homedir(), 'Desktop') + "\\Models",
             "name":"Test_Model",
             "cuda":1
@@ -129,9 +129,9 @@ function load_stylize() {
     } else {
         args = {
             "subcommand":"eval",
-            "content_image":"resources/app.asar.unpacked/Testing_Assets/content.jpg",
+            "content_image":"resources/app.asar.unpacked/Testing_Assets/Testing_Assets/content.jpg",
             "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
-            "model":"resources/app.asar.unpacked/Testing_Assets/model.pth",
+            "model":"resources/app.asar.unpacked/Testing_Assets/Testing_Assets/model.pth",
             "cuda":1
         };
     }

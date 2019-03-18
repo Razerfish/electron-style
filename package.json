@@ -42,7 +42,22 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm"
+        "packageManager": "npm",
+        "ignore": [
+            ".vscode",
+            "Scripts",
+            "pyenv",
+            "Tools",
+            ".compilerc",
+            ".eslintrc",
+            ".gitignore",
+            "neural_style.spec",
+            "package-lock.json",
+            "requirements.txt"
+        ],
+        "asar": {
+            "unpackDir": "**/{src/bin,Testing_Assets}/**/*"
+        }
       },
       "electronWinstallerConfig": {
         "name": "pytorch_neural_style_gui"
