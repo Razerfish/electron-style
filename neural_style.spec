@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-neural_style_a = Analysis(['Assets\\Scripts\\neural_style\\neural_style.py'],
-             pathex=['Assets\\Scripts\\neural_style', 'C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
+neural_style_a = Analysis(['Scripts\\Python\\neural_style\\neural_style.py'],
+             pathex=['Scripts\\Python\\neural_style', 'C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -16,8 +16,8 @@ neural_style_a = Analysis(['Assets\\Scripts\\neural_style\\neural_style.py'],
              cipher=block_cipher,
              noarchive=False)
 
-check_cuda_a = Analysis(['Assets\\Scripts\\check_cuda\\check_cuda.py'],
-             pathex=['Assets\\Scripts\\check_cuda', 'C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
+check_cuda_a = Analysis(['Scripts\\Python\\check_cuda\\check_cuda.py'],
+             pathex=['Scripts\\Python\\check_cuda', 'C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
              binaries=[],
              datas=[],
              hiddenimports=[],
