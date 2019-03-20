@@ -11,6 +11,7 @@
     "precompile": "py Tools\\precompile.py",
     "package": "electron-forge package",
     "prepackage": "node Tools\\prepackage.js",
+    "debug-package": "set DEBUG=electron-packager && npm run package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint src --color",
