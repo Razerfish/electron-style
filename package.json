@@ -49,10 +49,10 @@
       "electronPackagerConfig": {
         "packageManager": "npm",
         "ignore": [
-            "(?<!.*node_modules|.*src\\/bin)\\.vscode($|\\/)",
+            "(?<!.*node_modules|.*src\\/bin)\\/\\.vscode($|\\/)",
             "(?<!.*node_modules|.*src\\/bin)\\/Assets($|\\/)",
             "(?<!.*node_modules|.*src\\/bin)\\/env($|\\/)",
-            "(?<!.*node_modules|.*src\\/bin)Tools($|\\/)",
+            "(?<!.*node_modules|.*src\\/bin)\\/Tools($|\\/)",
             ".compilerc",
             ".eslintrc",
             ".gitignore",
