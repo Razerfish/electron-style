@@ -70,8 +70,8 @@ function load_training() {
     if (isDev()) {
         args = {
             "subcommand":"train",
-            "dataset":"./Testing_Assets/dataset",
-            "style_image":"./Testing_Assets/style_image.jpg",
+            "dataset":"./Testing_Assets/Testing_Assets/dataset",
+            "style_image":"./Testing_Assets/Testing_Assets/style_image.jpg",
             "save_model_dir":require('path').join(require('os').homedir(), 'Desktop') + "\\Models",
             "name":"Test_Model",
             "cuda":1
@@ -121,9 +121,9 @@ function load_stylize() {
     if (isDev()) {
         args = {
             "subcommand":"eval",
-            "content_image":"./Testing_Assets/content.jpg",
+            "content_image":"./Testing_Assets/Testing_Assets/content.jpg",
             "output_image":require('path').join(require('os').homedir(), 'Desktop') + "\\Test_Output.jpg",
-            "model":"./Testing_Assets/model.pth",
+            "model":"./Testing_Assets/Testing_Assets/model.pth",
             "cuda":1
         };
     } else {
