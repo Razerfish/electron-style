@@ -84,8 +84,8 @@ Scripts/Python/pyinstaller-build-files
 #Release builds
 release-builds/*
 
-#Python virtual environment
-pyenv/*
+#Python virtual environments
+env/*
 
 #Rope project
 .vscode/.ropeproject/*

@@ -17,7 +17,7 @@ Using a command prompt navigate to where you cloned the repo and run:<br>
 ```
 npm install
 npm run setup
-source pyenv/Scripts/activate
+source env/Scripts/activate
 ```
 
 # Testing

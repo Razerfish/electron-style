@@ -1,6 +1,6 @@
 {
     "editor.detectIndentation": false,
-    "python.pythonPath": "pyenv\\Scripts\\python.exe",
+    "python.pythonPath": "env\\Scripts\\python.exe",
     "files.exclude": {
         "Testing_Assets.zip": true,
         "*.dat": true
