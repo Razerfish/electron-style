@@ -25,27 +25,28 @@ def get_files(dirName):
     return files
 
 if os.path.isdir(os.path.normpath("./out/Pytorch Neural Style-win32-x64")):
-    src = get_files(os.path.normpath("src/bin"))
+    source = get_files(os.path.normpath("src/bin"))
     packaged = get_files(os.path.normpath("out/Pytorch Neural Style-win32-x64/resources/app.asar.unpacked/src/bin"))
 
     for p in range(len(packaged)):
         packaged[p] = packaged[p][packaged[p].find("src"):]
 
     missing = []
-    for i in range(len(src)):
+    for i in range(len(source)):
         try:
-            packaged.index(src[i])
+            packaged.index(source[i])
         except ValueError:
-            missing.append(src[i])
+            missing.append(source[i])
 
     if len(missing) != 0:
-        message = "Missing files: "
+        message = "Missing: "
         for m in range(len(missing)):
             message = message + missing[m]
+        print(bcolors.FAIL + str(len(packaged)) + "/" + str(len(source)) + " files packaged." + bcolors.ENDC)
         print(bcolors.FAIL + message + bcolors.ENDC + "\n")
         sys.exit(1)
     else:
-        print(bcolors.OKBLUE + "All bin files are packaged" + bcolors.ENDC + "\n")
+        print(bcolors.OKGREEN + str(len(packaged)) + "/" + str(len(source)) + " files packaged." + bcolors.ENDC + "\n")
 else:
     print(bcolors.FAIL + "No packaged directory found at: ./out/Pytorch Neural Style-win32-x64" + bcolors.ENDC + "\n")
     sys.exit(1)
