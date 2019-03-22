@@ -11,11 +11,15 @@
     "precompile": "py Tools\\precompile.py",
     "package": "electron-forge package",
     "prepackage": "node Tools\\prepackage.js",
-    "debug-package": "set DEBUG=electron-packager && npm run package",
+    "postpackage": "py Tools\\verifyBin.py",
+    "debug-package": "set DEBUG=electron-packager && electron-forge package",
+    "predebug-package": "node Tools\\prepackage.js",
+    "postdebug-package": "py Tools\\verifyBin.py",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint src --color",
-    "setup": "Tools\\setup.bat"
+    "setup": "Tools\\setup.bat",
+    "verify-bin": "py Tools\\verifyBin.py"
   },
   "repository": {
     "type": "git",
