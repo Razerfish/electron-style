@@ -51,7 +51,7 @@
         "ignore": [
             "(?<!.*node_modules|.*src\\/bin)\\.vscode($|\\/)",
             "(?<!.*node_modules|.*src\\/bin)Scripts($|\\/)",
-            "(?<!.*node_modules|.*src\\/bin)pyenv($|\\/)",
+            "(?<!.*node_modules|.*src\\/bin)\\/env($|\\/)",
             "(?<!.*node_modules|.*src\\/bin)Tools($|\\/)",
             ".compilerc",
             ".eslintrc",
