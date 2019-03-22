@@ -87,8 +87,8 @@ release-builds/*
 #Python virtual environments
 env/*
 
-#Rope project
-.vscode/.ropeproject/*
+#Rope objectdb
+.vscode/.ropeproject/objectdb
 
 #Electron-forge outfiles
 out
