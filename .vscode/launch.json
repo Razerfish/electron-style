@@ -5,15 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Main Process",
             "type": "node",
             "request": "launch",
-            "cwd": "${workspaceRoot}",
-            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "name": "Debug Main Process",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron-forge-vscode-nix",
             "windows": {
-              "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+              "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron-forge-vscode-win.cmd"
             },
-            "args" : ["."]
+            // runtimeArgs will be passed directly to your Electron application
+            "runtimeArgs": [
+              "foo",
+              "bar"
+            ],
+            "cwd": "${workspaceFolder}"
         },
         {
             "type": "node",

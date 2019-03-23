@@ -75,8 +75,11 @@ Tests/*
 #Testing assets
 Testing_Assets/*
 
-#All files in Assets/Executables
-Assets/bin/*
+#All files in src/bin
+src/bin/*
+
+#Pyinstaller build files
+Assets/pyinstaller-build-files
 
 #Release builds
 release-builds/*
@@ -84,5 +87,8 @@ release-builds/*
 #Python virtual environments
 env/*
 
-#Rope project
-.vscode/.ropeproject/*
+#Rope objectdb
+.vscode/.ropeproject/objectdb
+
+#Electron-forge outfiles
+out

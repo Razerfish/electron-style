@@ -1,9 +1,9 @@
 const fs = require('fs');
 const exec = require('child_process').exec;
 
-if (!fs.existsSync("Assets\\bin\\neural_style\\neural_style.exe")) {
+if (!fs.existsSync("src\\bin\\neural_style\\neural_style.exe")) {
     console.log("neural_style.exe not found, recompiling...");
-    compile_process = exec('npm run compile-neural-style');
+    compile_process = exec('npm run compile');
 
     compile_process.stderr.on('data', (data) => {
         console.error(data.toString());

@@ -1,32 +1,96 @@
 {
   "name": "pytorch-neural-style-gui",
   "productName": "Pytorch Neural Style",
-  "version": "0.0.3",
+  "version": "2.0.0",
   "description": "An Electron app for the Pytorch implementation of neural style.",
-  "main": "main.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron-forge start",
     "prestart": "node Tools\\prestart.js",
-    "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets\\bin\\Builds --distpath=Assets\\bin",
+    "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets\\pyinstaller-build-files --distpath=src\\bin",
     "precompile": "py Tools\\precompile.py",
+    "package": "electron-forge package",
     "prepackage": "node Tools\\prepackage.js",
-    "package": "electron-packager . pytorch-neural-style-gui --overwrite --asar.unpackDir=\"{Assets/bin,Testing_Assets}\" --ignore=\".gitignore|.vscode|release-builds|requirements.txt|Test.js|Testing_Assets.zip|Assets/Scripts|Assets/bin/Builds|env\" --platform=win32 --arch=x64 --prune=true --out release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Pytorch Neural Style\"",
-    "build": "npm run compile && npm run package",
-    "setup": "Tools\\setup.bat"
+    "postpackage": "py Tools\\verifyBin.py",
+    "debug-package": "set DEBUG=electron-packager && npm run package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint src --color",
+    "setup": "Tools\\setup.bat",
+    "verify-bin": "py Tools\\verifyBin.py"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Razerfish/pytorch-neural-style-gui.git"
   },
+  "keywords": [],
   "author": "Alec Wilson",
   "license": "GPL-3.0-only",
   "bugs": {
     "url": "https://github.com/Razerfish/pytorch-neural-style-gui/issues"
   },
   "homepage": "https://github.com/Razerfish/pytorch-neural-style-gui#readme",
-  "devDependencies": {
-    "electron": "^3.0.12",
-    "electron-packager": "^13.0.1"
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm",
+        "ignore": [
+            "(?<!.*node_modules|.*src\\/bin)\\/\\.vscode($|\\/)",
+            "(?<!.*node_modules|.*src\\/bin)\\/Assets($|\\/)",
+            "(?<!.*node_modules|.*src\\/bin)\\/env($|\\/)",
+            "(?<!.*node_modules|.*src\\/bin)\\/Tools($|\\/)",
+            ".compilerc",
+            ".eslintrc",
+            ".gitignore",
+            "neural_style.spec",
+            "package-lock.json",
+            "requirements.txt"
+        ],
+        "asar": {
+            "unpackDir": "**/{src/bin,Testing_Assets}/**/*"
+        }
+      },
+      "electronWinstallerConfig": {
+        "name": "pytorch_neural_style_gui"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "Razerfish",
+        "name": "pytorch-neural-style-gui"
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "pytorchneuralstylegui"
+      }
+    }
   },
-  "dependencies": {}
+  "dependencies": {
+    "electron-compile": "^6.4.4",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "4.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.12.4"
+  }
 }

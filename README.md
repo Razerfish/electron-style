@@ -15,19 +15,21 @@ CUDA 9.0 compatible GPU (for GPU support)
 Clone repository onto target machine.<br>
 Using a command prompt navigate to where you cloned the repo and run:<br>
 ```
+unzip Testing_Assets.zip
 npm install
 npm run setup
 source env/Scripts/activate
+npm run compile
 ```
 
 # Testing
 To start the program run:<br>
 `npm start`<br>
 
-# Compiling and Packaging
+# Compiling, Packaging and Making
 To compile `neural_style.py` and `check_cuda.py` into binaries run:<br>
 `npm run compile`<br>
 To package the current state of the project into and Electron distribution run:<br>
 `npm run package`<br>
-To compile and package in one command use:<br>
-`npm run build`
+To make the project into an exe installer run:<br>
+`npm run make`
