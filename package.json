@@ -47,19 +47,19 @@
       "electronPackagerConfig": {
         "packageManager": "npm",
         "ignore": [
-            "(?<!.*node_modules|.*src\\/bin)\\/\\.vscode($|\\/)",
-            "(?<!.*node_modules|.*src\\/bin)\\/Assets($|\\/)",
-            "(?<!.*node_modules|.*src\\/bin)\\/env($|\\/)",
-            "(?<!.*node_modules|.*src\\/bin)\\/Tools($|\\/)",
-            ".compilerc",
-            ".eslintrc",
-            ".gitignore",
-            "neural_style.spec",
-            "package-lock.json",
-            "requirements.txt"
+          "(?<!.*node_modules|.*src\\/bin)\\/\\.vscode($|\\/)",
+          "(?<!.*node_modules|.*src\\/bin)\\/Assets($|\\/)",
+          "(?<!.*node_modules|.*src\\/bin)\\/env($|\\/)",
+          "(?<!.*node_modules|.*src\\/bin)\\/Tools($|\\/)",
+          ".compilerc",
+          ".eslintrc",
+          ".gitignore",
+          "neural_style.spec",
+          "package-lock.json",
+          "requirements.txt"
         ],
         "asar": {
-            "unpackDir": "**/{src/bin,Testing_Assets}/**/*"
+          "unpackDir": "**/{src/bin,Testing_Assets}/**/*"
         }
       },
       "electronWinstallerConfig": {
