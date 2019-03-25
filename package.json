@@ -9,6 +9,7 @@
     "prestart": "node Tools\\prestart.js",
     "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets\\pyinstaller-build-files --distpath=src\\bin",
     "precompile": "py Tools\\precompile.py",
+    "postcompile": "node Tools\\copy_license.js",
     "package": "electron-forge package",
     "prepackage": "node Tools\\prepackage.js",
     "postpackage": "py Tools\\verifyBin.py",
