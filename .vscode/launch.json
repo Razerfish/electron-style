@@ -38,7 +38,7 @@
             "request": "launch",
             "program": "${workspaceRoot}/Assets/Scripts/neural_style/neural_style.py",
             "console": "integratedTerminal",
-            "args": ["{\"subcommand\":\"train\", \"dataset\":\"./Testing_Assets/dataset\", \"style_image\":\"./Testing_Assets/style_image.jpg\", \"save_model_dir\":\"./Tests/Models\", \"name\":\"Test_Model\", \"cuda\":1}"]
+            "args": ["{\"subcommand\":\"train\", \"dataset\":\"./Testing_Assets/Testing_Assets/dataset\", \"style_image\":\"./Testing_Assets/Testing_Assets/style_image.jpg\", \"save_model_dir\":\"./Tests/Models\", \"name\":\"Test_Model\", \"cuda\":1}"]
         },
         {
             "name": "Debug Stylization",
@@ -46,7 +46,7 @@
             "request": "launch",
             "program": "${workspaceRoot}/Assets/Scripts/neural_style/neural_style.py",
             "console": "integratedTerminal",
-            "args": ["{\"subcommand\":\"eval\", \"content_image\":\"./Testing_Assets/content.jpg\", \"output_image\":\"./Tests/Test_Output.jpg\", \"model\":\"./Testing_Assets/model.pth\", \"cuda\":1}"]
+            "args": ["{\"subcommand\":\"eval\", \"content_image\":\"./Testing_Assets/Testing_Assets/content.jpg\", \"output_image\":\"./Tests/Test_Output.jpg\", \"model\":\"./Testing_Assets/Testing_Assets/model.pth\", \"cuda\":1}"]
         },
         {
             "name": "Debug check_cuda",
