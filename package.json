@@ -1,6 +1,6 @@
 {
-  "name": "pytorch-neural-style-gui",
-  "productName": "Pytorch Neural Style",
+  "name": "electron-style",
+  "productName": "Electron Style",
   "version": "2.0.0",
   "description": "An Electron app for the Pytorch implementation of neural style.",
   "main": "src/index.js",
@@ -21,15 +21,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Razerfish/pytorch-neural-style-gui.git"
+    "url": "git+https://github.com/Razerfish/electron-style.git"
   },
   "keywords": [],
   "author": "Alec Wilson",
   "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/Razerfish/pytorch-neural-style-gui/issues"
+    "url": "https://github.com/Razerfish/electron-style/issues"
   },
-  "homepage": "https://github.com/Razerfish/pytorch-neural-style-gui#readme",
+  "homepage": "https://github.com/Razerfish/electron-style#readme",
   "config": {
     "forge": {
       "make_targets": {
@@ -63,17 +63,18 @@
         }
       },
       "electronWinstallerConfig": {
-        "name": "pytorch_neural_style_gui"
+        "name": "electron_style",
+        "setupExe": "Electron-Style-Setup"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
         "owner": "Razerfish",
-        "name": "pytorch-neural-style-gui"
+        "name": "electron-style"
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "pytorchneuralstylegui"
+        "name": "electronstyle"
       }
     }
   },

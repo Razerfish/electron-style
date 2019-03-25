@@ -1,5 +1,5 @@
-# pytorch-neural-style-gui
-An Electron app for the pytorch implementation of neural style. Name is a placeholder.
+# Electron Style
+An Electron app for the pytorch implementation of neural style.
 
 # Requirements
 ```

@@ -24,9 +24,9 @@ def get_files(dirName):
                 
     return files
 
-if os.path.isdir(os.path.normpath("./out/Pytorch Neural Style-win32-x64")):
+if os.path.isdir(os.path.normpath("./out/Electron Style-win32-x64")):
     source = get_files(os.path.normpath("src/bin"))
-    packaged = get_files(os.path.normpath("out/Pytorch Neural Style-win32-x64/resources/app.asar.unpacked/src/bin"))
+    packaged = get_files(os.path.normpath("out/Electron Style-win32-x64/resources/app.asar.unpacked/src/bin"))
 
     for p in range(len(packaged)):
         packaged[p] = packaged[p][packaged[p].find("src"):]
@@ -48,5 +48,5 @@ if os.path.isdir(os.path.normpath("./out/Pytorch Neural Style-win32-x64")):
     else:
         print(bcolors.OKGREEN + str(len(packaged)) + "/" + str(len(source)) + " files packaged." + bcolors.ENDC + "\n")
 else:
-    print(bcolors.FAIL + "No packaged directory found at: ./out/Pytorch Neural Style-win32-x64" + bcolors.ENDC + "\n")
+    print(bcolors.FAIL + "No packaged directory found at: ./out/Electron Style-win32-x64" + bcolors.ENDC + "\n")
     sys.exit(1)
