@@ -18,7 +18,7 @@ function create_neural_style(args) {
     }
 }
 
-function isCUDA() {
+function cuda_available() {
     return new Promise((resolve, reject) => {
         const execFile = require("child_process").execFile;
     
