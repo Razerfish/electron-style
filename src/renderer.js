@@ -63,7 +63,11 @@ function parse_data(data) {
 }
 
 function load_training() {
-    // This function assumes that mode_select has already been unloaded.
+    // Hide mode select
+    $("#mode_select").hide();
+    
+    // Stop listening to and disable mode select
+    // Show training
     $("#training").css("display", "block");
 
     let args;
@@ -114,7 +118,10 @@ function load_training() {
 }
 
 function load_stylize() {
-    // This function assumes that mode_select has already been unloaded.
+    // Hide mode select
+    $("#mode_select").hide();
+
+    // Show stylize
     $("#stylize").css("display", "block");
 
     let args;
@@ -168,15 +175,10 @@ if (!isDev()) {
 }
 
 $(document).ready(function () {
-    $("#train_button, #stylize_button").click(function () {
-        $("#mode_select").hide();
-    });
     $("#train_button").click(function () {
-        $("#mode_select").hide();
         load_training();
     });
     $("#stylize_button").click(function () {
-        $("#mode_select > *").hide();
         load_stylize();
     });
 });
