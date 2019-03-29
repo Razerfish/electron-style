@@ -62,10 +62,145 @@ function parse_data(data) {
     }
 }
 
+function ensure_model() {
+    return new Promise((resolve, reject) => {
+        // Disable mode select buttons.
+        $("#train_button").off("click");
+        $("#train_button").prop("disabled", true);
+        $("#stylize_button").off("click");
+        $("#stylize_button").prop("disabled", true);
+
+        const fs = require('fs');
+        const join = require('path').join;
+        const homedir = require('os').homedir();
+
+        // Check if vgg16 training model exists.
+        fs.exists(join(homedir, ".torch/models/vgg16-397923af.pth"), (exists) => {
+            // Hide mode select.
+            $("#mode_select").hide();
+
+            if (exists) {
+                // If the model file exists, resolve as true.
+                resolve(true);
+            } else {
+                // If it can't be found, download it.
+                $("#download").css("display", "block");
+
+                // Ensure that the path to the model exists.
+                new Promise((resolve, reject) => {
+                    // Check if C:/Users/<username>/.torch exists.
+                    fs.exists(join(homedir, ".torch"), (exists) => {
+                        if (!exists) {
+                            // If it doesn't, create it and .torch/models and then resolve.
+                            fs.mkdir(join(homedir, ".torch"), (err) => {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    fs.mkdir(join(homedir, ".torch/models"), (err) => {
+                                        if (err) {
+                                            reject(err);
+                                        } else {
+                                            resolve();
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            // If it does exist, check if .torch/models exists.
+                            fs.exists(join(homedir, ".torch/models"), (exists) => {
+                                if (!exists) {
+                                    // If it doesn't, create it and then resolve.
+                                    fs.mkdir(join(homedir, ".torch/models"), (err) => {
+                                        if (err) {
+                                            reject(err);
+                                        } else {
+                                            resolve();
+                                        }
+                                    });
+                                } else {
+                                    // If it does exist, resolve.
+                                    resolve();
+                                }
+                            });
+                        }
+                    });
+                }).then(() => {
+                    // Download model
+                    const https = require('https');
+
+                    // Make sure that a temp model file doesn't already exist.
+                    fs.unlink(join(homedir, ".torch/models/vgg16-397923af.pth.tmp"), (err) => {
+                        if (err && !err.code === "ENOENT") {
+                            reject(err);
+                        } else {
+                            // Create a write stream to the model file.
+                            const model_file = fs.createWriteStream(join(homedir, ".torch/models/vgg16-397923af.pth.tmp"));
+
+                            // Create a get request for the model from download.pytorch.org.
+                            const req = https.get("https://download.pytorch.org/models/vgg16-397923af.pth", (res) => {
+                                // Pipe the data from the request to the write stream.
+                                res.pipe(model_file);
+
+                                // Track the download progress of the model.
+                                let downloaded = 0, last = 0, now;
+                                res.on('data', (chunk) => {
+                                    downloaded += chunk.length;
+                                    now = Math.floor((downloaded / res.headers['content-length']) * 100);
+
+                                    // Update the download progress box if it's behind.
+                                    if (now > last) {
+                                        $("#download_progress").text(now + "%");
+                                    }
+                                    last = now;
+                                });
+
+                                // Once the download is done, disable and hide elements and resolve as true.
+                                res.on('end', () => {
+                                    // Rename temp file to the proper model name 
+                                    fs.rename(join(homedir, ".torch/models/vgg16-397923af.pth.tmp"),
+                                    join(homedir, ".torch/models/vgg16-397923af.pth"), (err) => {
+                                        if (err) {
+                                            reject(err);
+                                        } else {
+                                            // Cleanup and resolve
+                                            $("#cancel_download").prop("disabled", true);
+                                            $("#cancel_download").off("click");
+                                            $("#download").hide();
+                                            resolve(true);
+                                        }
+                                    });
+                                });
+                            });
+
+                            // Handle canceling of the download.
+                            $("#cancel_download").click(function() {
+                                // Abort the get request.
+                                req.abort();
+                                // End the write stream.
+                                model_file.end();
+                                
+                                // Cleanup the unfinished temp file.
+                                fs.unlink(join(homedir, ".torch/models/vgg16-397923af.pth.tmp"), (err) => {
+                                    if (err) {
+                                        reject(err);
+                                    } else {
+                                        resolve(false);
+                                    }
+                                });
+                            });
+                            // Enable the cancel download button.
+                            $("#cancel_download").prop("disabled", false);
+                        }
+                    });
+                }).catch((err) => {
+                    reject(err);
+                });
+            }
+        });
+    });
+}
+
 function load_training() {
-    // Hide mode select
-    $("#mode_select").hide();
-    
     // Stop listening to and disable mode select
     // Show training
     $("#training").css("display", "block");
@@ -176,7 +311,23 @@ if (!isDev()) {
 
 $(document).ready(function () {
     $("#train_button").click(function () {
-        load_training();
+        ensure_model().then((completed) => {
+            if (completed) {
+                // Make SURE that the model file is present.
+                require('fs').exists(require('path').join(require('os').homedir(), ".torch/models/vgg16-397923af.pth"), (exists) => {
+                    if (!exists) {
+                        console.error("Model file not found");
+                        require('electron').remote.getCurrentWindow().reload();
+                    } else {
+                        load_training();
+                    }
+                });
+            } else {
+                require('electron').remote.getCurrentWindow().reload();
+            }
+        }).catch((err) => {
+            throw err;
+        });
     });
     $("#stylize_button").click(function () {
         load_stylize();
