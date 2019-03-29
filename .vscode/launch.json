@@ -17,7 +17,8 @@
               "foo",
               "bar"
             ],
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "timeout": 20000
         },
         {
             "type": "node",
