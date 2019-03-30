@@ -65,7 +65,7 @@
       },
       "electronWinstallerConfig": {
         "name": "electron_style",
-        "setupExe": "Electron-Style-Setup"
+        "setupExe": "Electron-Style.exe"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
