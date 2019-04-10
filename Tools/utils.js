@@ -39,24 +39,23 @@ module.exports = {
         // Check if virtual environment already exists.
         if (fs.existsSync("./env")) {
             // If env exists, ask the user if they want to overwrite it.
-            const readline = require('readline');
+            const readline = require('readline-sync');
 
-            overwrite = readline.createInterface({
-                input: process.stdin,
-                output: process.stdout
-            });
-
-            overwrite.question("env already exists. Do you want to overwrite it? y/n\n", (answer) => {
-                overwrite.close();
-                if (answer.toLowerCase() === "y") {
+            let overwrite;
+            for (var i=0; i < 3; i++) {
+                overwrite = readline.question("env already exists. Do you want to overwrite it? y/n\n");
+                
+                if (overwrite.toLowerCase() === "y") {
                     return 2;
-                } else if (answer.toLowerCase() === "n") {
+                } else if (overwrite.toLocaleLowerCase() === "n") {
                     return 0;
                 } else {
-                    console.error(("Unknown option: " + answer + "\n").red);
-                    return 0;
+                    console.log(`Unknown option ${overwrite}\n`);
                 }
-            });
+            }
+
+            console.error("There have been three failed input attempts. Exiting...\n".red);            
+            process.exit(1);
         } else {
             return 1;
         }
