@@ -17,8 +17,7 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint src --color",
-    "setup": "node Tools/setup.js",
-    "verify-bin": "node Tools/verifyBin.js"
+    "setup": "node Tools/setup.js"
   },
   "repository": {
     "type": "git",
