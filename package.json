@@ -6,18 +6,18 @@
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
-    "prestart": "node Tools/prestart.js",
+    "prestart": "node ./Tools/prestart.js",
     "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets/pyinstaller-build-files --distpath=src/bin",
     "precompile": "node ./Tools/precompile.js",
-    "postcompile": "node Tools/copy_license.js",
+    "postcompile": "node ./Tools/copy_license.js",
     "package": "electron-forge package",
-    "prepackage": "node Tools/prepackage.js",
+    "prepackage": "node ./Tools/prepackage.js",
     "postpackage": "node ./Tools/verifyBin.js",
     "debug-package": "set DEBUG=electron-packager && npm run package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint src --color",
-    "setup": "node Tools/setup.js"
+    "setup": "node ./Tools/setup.js"
   },
   "repository": {
     "type": "git",
