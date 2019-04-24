@@ -23,8 +23,16 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Currently Open File With Node",
-            "program": "${file}"
+            "name": "Node: Console",
+            "program": "${file}",
+            "console": "internalConsole"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Node: Terminal",
+            "program": "${file}",
+            "console": "integratedTerminal"
         },
         {
             "name": "Python: Terminal (integrated)",
