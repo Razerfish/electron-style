@@ -14,7 +14,8 @@
                 "panel": "dedicated",
                 "showReuseMessage": true,
                 "clear": false
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "compile",
@@ -28,7 +29,8 @@
                 "showReuseMessage": true,
                 "clear": true
             },
-            "group": "build"
+            "group": "build",
+            "problemMatcher": []
         },
         {
             "label": "package",
@@ -42,7 +44,8 @@
                 "showReuseMessage": true,
                 "clear": false
             },
-            "group": "build"
+            "group": "build",
+            "problemMatcher": []
         },
         {
             "label": "debug-package",
@@ -56,7 +59,8 @@
                 "showReuseMessage": true,
                 "clear": true
             },
-            "group": "build"
+            "group": "build",
+            "problemMatcher": []
         },
         {
             "label": "make",
@@ -70,7 +74,8 @@
                 "showReuseMessage": true,
                 "clear": false
             },
-            "group": "build"
+            "group": "build",
+            "problemMatcher": []
         },
         {
             "label": "setup",
@@ -83,7 +88,8 @@
                 "panel": "shared",
                 "showReuseMessage": false,
                 "clear": false
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "lint",
@@ -97,7 +103,9 @@
                 "showReuseMessage": true,
                 "clear": true
             },
-            "problemMatcher": ["$eslint-stylish"]
+            "problemMatcher": [
+                "$eslint-stylish"
+            ]
         }
     ]
 }
