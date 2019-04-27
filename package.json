@@ -16,7 +16,7 @@
     "debug-package": "set DEBUG=electron-packager && npm run package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint src --color",
+    "lint": "eslint src Tools --color",
     "setup": "node ./Tools/setup.js"
   },
   "repository": {
@@ -80,7 +80,8 @@
   },
   "dependencies": {
     "electron-compile": "^6.4.4",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "jquery": "^3.4.0"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",

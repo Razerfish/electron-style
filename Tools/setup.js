@@ -1,12 +1,19 @@
 /**
  * @function remove_env
- * @returns Promise object that resolves once the ./env folder has been deleted or can reject with an error.
+ * @returns Promise object that resolves once the ./env folder has been deleted or can 
+ * reject with an error.
  * @description Deletes an existing python virtual environment found in env.
  */
-function remove_env() {
-    return new Promise((resolve, reject) => {
-        const rimraf = require('rimraf');
 
+const rimraf = require('rimraf');
+const shell = require('shelljs');
+const utils = require('./utils');
+const execFile = require('child_process').execFile;
+
+require('colors');
+
+function removeEnv() {
+    return new Promise((resolve, reject) => {
         rimraf("env", (err) => {
             if (err) {
                 reject(err);
@@ -19,17 +26,17 @@ function remove_env() {
 
 /**
  * @function create_env
- * @returns Promise object that resolves once a new python virtual environment with all packages installed is successfully
+ * @returns Promise object that resolves once a new python virtual environment with all packages is
+ * installed successfully.
  * created at ./env, or rejects if it fails.
- * @description Creates a new python virtual environment at ./env and installs packages from ./requirements.txt.
+ * @description Creates a new python virtual environment at ./env and installs packages from
+ * ./requirements.txt.
  */
-function create_env() {
+function createEnv() {
+    /* eslint-disable no-shadow */
     return new Promise((resolve, reject) => {
-        const shell = require('shelljs');
-        require('colors');
-
         // Create virtual environment.
-        const create = shell.exec("python -m venv env", {async: true, silent: true});
+        const create = shell.exec("python -m venv env", { async: true, silent: true });
 
         create.stdout.on('data', (data) => {
             process.stdout.write(data.toString());
@@ -44,8 +51,6 @@ function create_env() {
                 reject();
             } else {
                 // Upgrade pip and setuptools
-                const execFile = require('child_process').execFile;
-
                 const upgrade = execFile("./env/Scripts/python.exe", [
                     '-m',
                     'pip',
@@ -95,46 +100,43 @@ function create_env() {
         });
     });
 }
+/* eslint-enable no-shadow */
 
 (async () => {
-    const utils = require('./utils');
-    require('colors');
-
     // Check if python is available.
-    if (utils.check_python()) {
+    if (utils.checkPython()) {
         // Check if env exists.
-        const env_code = utils.check_env();
-        if (env_code === 0) {
+        const envCode = utils.checkEnv();
+        if (envCode === 0) {
             // env already exists, do not proceed.
             process.exit(0);
-        } else if (env_code === 1) {
+        } else if (envCode === 1) {
             try {
-                await create_env();
+                await createEnv();
                 process.exit(0);
             } catch (err) {
-                console.error(err.toString().red + "\n");
+                console.error(`${err.toString()}\n`.red);
                 process.exit(1);
             }
-        } else if (env_code === 2) {
+        } else if (envCode === 2) {
             try {
                 await remove_env();
                 await create_env();
                 console.log("\nDone!\n".green);
                 process.exit(0);
             } catch (err) {
-                console.error(err.toString().red + "\n");
+                console.error(`${err.toString()}\n`.red);
                 process.exit(1);
             }
         } else {
-            console.error(`Expected code 0, 1 or 2. Got code ${env_code}`.red + "\n");
+            console.error(`Expected code 0, 1 or 2. Got code ${envCode}\n`.red);
             process.exit(1);
         }
     } else {
         console.error("Python is not available\n".red);
         process.exit(1);
     }
-})().catch(err => {
-    require('colors');
+})().catch((err) => {
     console.error(err.toString().red);
     process.exit(1);
 });

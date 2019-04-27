@@ -1,13 +1,12 @@
 const utils = require('./utils');
+const exec = require('child_process').exec;
 require('colors');
 
-if (utils.check_python()) {
-    const exec = require('child_process').exec;
-
+if (utils.checkPython()) {
     const precompile = exec("py Tools/precompile.py");
 
     precompile.stderr.on('data', (data) => {
-        console.error(data.toString().red + "\n");
+        console.error(`${data.toString()}\n`.red);
     });
 
     precompile.stdout.on('data', (data) => {
