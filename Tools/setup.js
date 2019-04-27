@@ -120,8 +120,9 @@ function createEnv() {
             }
         } else if (envCode === 2) {
             try {
-                await removeEnv();
-                await createEnv();
+                await remove_env();
+                await create_env();
+                console.log("\nDone!\n".green);
                 process.exit(0);
             } catch (err) {
                 console.error(`${err.toString()}\n`.red);
