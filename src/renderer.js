@@ -27,9 +27,9 @@ function isDev() {
  */
 function createNeuralStyle(args) {
     if (isDev()) {
-        return execFile("./src/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
+        return execFile("./src/bin/torchbrain/torchbrain.exe", ["-A", "neural_style", JSON.stringify(args)]);
     } else {
-        return execFile("./resources/app.asar.unpacked/src/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
+        return execFile("./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe", ["-A", "neural_style", JSON.stringify(args)]);
     }
 }
 
@@ -42,29 +42,29 @@ function createNeuralStyle(args) {
  */
 function cudaAvailable() {
     return new Promise((resolve, reject) => {
-        let getCuda;
+        let getCudaProcess;
         if (isDev()) {
-            getCuda = execFile("./src/bin/neural_style/check_cuda.exe");
+            getCudaProcess = execFile("./src/bin/torchbrain/torchbrain.exe", ["-A", "check_cuda"]);
         } else {
-            getCuda = execFile("./resources/app.asar.unpacked/src/bin/neural_style/check_cuda.exe");
+            getCudaProcess = execFile("./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe", ["-A", "check_cuda"]);
         }
         
         
-        getCuda.stderr.on('data', (data) => {
+        getCudaProcess.stderr.on('data', (data) => {
             reject(data.toString());
         });
 
-        getCuda.stdout.on('data', (data) => {
+        getCudaProcess.stdout.on('data', (data) => {
             data = JSON.parse(data.toString());
-            if (data.cuda_available === "True") {
+            if (data.cuda_available === true) {
                 resolve(true);
             } else {
                 resolve(false);
             }
         });
     
-        // Alert the child process that we're ready for output.
-        getCuda.stdin.write("\n");
+        // Alert the process that we're ready for output.
+        getCudaProcess.stdin.write("\n");
     });
 }
 /* eslint-enable no-unused-vars, no-param-reassign */

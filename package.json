@@ -7,7 +7,7 @@
   "scripts": {
     "start": "electron-forge start",
     "prestart": "node ./Tools/prestart.js",
-    "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets/pyinstaller-build-files --distpath=src/bin",
+    "compile": "pyinstaller torchbrain.spec --onedir --noconfirm --workpath=Assets/builds --distpath=src/bin",
     "precompile": "node ./Tools/precompile.js",
     "postcompile": "node ./Tools/copy_license.js",
     "package": "electron-forge package",
@@ -54,7 +54,7 @@
           ".compilerc",
           ".eslintrc",
           ".gitignore",
-          "neural_style.spec",
+          "torchbrain.spec",
           "package-lock.json",
           "requirements.txt"
         ],
