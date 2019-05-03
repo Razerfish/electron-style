@@ -1,10 +1,3 @@
-/**
- * @function remove_env
- * @returns Promise object that resolves once the ./env folder has been deleted or can 
- * reject with an error.
- * @description Deletes an existing python virtual environment found in env.
- */
-
 const rimraf = require('rimraf');
 const shell = require('shelljs');
 const utils = require('./utils');
@@ -12,6 +5,13 @@ const execFile = require('child_process').execFile;
 
 require('colors');
 
+
+/**
+ * @function removeEnv
+ * @returns Promise object that resolves once the ./env folder has been deleted or can 
+ * reject with an error.
+ * @description Deletes an existing python virtual environment found in env.
+ */
 function removeEnv() {
     return new Promise((resolve, reject) => {
         rimraf("env", (err) => {
@@ -25,7 +25,7 @@ function removeEnv() {
 }
 
 /**
- * @function create_env
+ * @function createEnv
  * @returns Promise object that resolves once a new python virtual environment with all packages is
  * installed successfully.
  * created at ./env, or rejects if it fails.
@@ -120,8 +120,8 @@ function createEnv() {
             }
         } else if (envCode === 2) {
             try {
-                await remove_env();
-                await create_env();
+                await removeEnv();
+                await createEnv();
                 console.log("\nDone!\n".green);
                 process.exit(0);
             } catch (err) {
