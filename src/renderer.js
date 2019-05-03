@@ -32,6 +32,7 @@ function createNeuralStyle(args) {
         return execFile("./resources/app.asar.unpacked/src/bin/neural_style/neural_style.exe", [JSON.stringify(args), "-A"]);
     }
 }
+
 /* eslint-disable no-unused-vars, no-param-reassign */
 /**
  * @function cudaAvailable
