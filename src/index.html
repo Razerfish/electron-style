@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src file://*">
     <title>Neural Style</title>
     <link rel="stylesheet" href="index.css">
 
-    <script>
-        require('./renderer.js');
-    </script>
+    <script src='./renderer.js'></script>
+
 </head>
 
 <body>
@@ -17,17 +17,17 @@
         <button class='grid_item' id='stylize_button'>Stylize</button>
     </div>
 
-    <div id="training" style="display: none;">
+    <div id="training">
         <h1 id="training_databox"></h1>
         <h1 id="training_infobox"></h1>
     </div>
 
-    <div id="stylize" style="display: none;">
+    <div id="stylize">
         <h1 id="stylize_databox"></h1>
         <h1 id="stylize_infobox"></h1>
     </div>
 
-    <div id="download" style="display: none;">
+    <div id="download">
         <h1>Downloading vgg model...</h1>
         <h1 id="download_progress"></h1>
         <button id="cancel_download" disabled>Cancel</button>

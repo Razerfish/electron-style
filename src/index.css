@@ -34,3 +34,15 @@ body {
     grid-row-start: 2;
     grid-row-end: 4;
 }
+
+#training {
+    display: none;
+}
+
+#stylize {
+    display: none;
+}
+
+#download {
+    display: none;
+}
