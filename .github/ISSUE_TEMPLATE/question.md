@@ -7,10 +7,4 @@ assignees: Razerfish
 
 ---
 
-**What does your question relate to**
- - [ ] Usage
- - [ ] Development
- - [ ] NPM scripts/tasks
- - [ ] Other, please explain:
-
 **What is you question**

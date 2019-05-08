@@ -7,12 +7,6 @@ assignees: Razerfish
 
 ---
 
-**What does the bug relate to**
- - [ ] Usage
- - [ ] Development
- - [ ] Packaging/Making
- - [ ] Other, please explain:
-
 **Describe the bug**
 A clear and concise description of what the bug is.
 
@@ -26,7 +20,7 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
+**System Information:**
  - OS: [e.g. Windows, MacOS]
  - OS Version [e.g. Windows 10, Mojave]
  - GPU Type [e.g. Integrated, Dedicated]
