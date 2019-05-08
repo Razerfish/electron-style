@@ -12,26 +12,12 @@ from torchvision import datasets
 from torchvision import transforms
 import torch.onnx
 
-import utils
-from utils import log
-from transformer_net import TransformerNet
-from vgg import Vgg16
+import neural_style.utils as utils
+from neural_style.utils import log
+from neural_style.transformer_net import TransformerNet
+from neural_style.vgg import Vgg16
 
 import argparse
-
-parser = argparse.ArgumentParser(description="Runs neural style with the given arguments.")
-parser.add_argument("args", action='store',
-help="Arguments to pass to neural style.")
-
-parser.add_argument("--attached", "-A", action='store_true', dest='attached',
-help="Run the program in attached mode.")
-
-start_conds = parser.parse_args()
-utils.set_attached(start_conds)
-
-# Check if running in attached mode, and if so wait for parent process to be ready for output.
-if start_conds.attached:
-    input()
 
 def check_paths(args):
     try:
@@ -265,7 +251,13 @@ def stylize_onnx_caffe2(content_image, args):
     return torch.from_numpy(c2_out)
 
 
-def main():
+def main(start_conds):
+    # Check if running in attached mode, and if so wait for parent process to be ready for output.
+    if start_conds.attached:
+        input()
+
+    utils.set_attached(start_conds)
+
     args = utils.InputArgs(json.loads(start_conds.args))
     if args.subcommand is None:
         sys.stderr.write("FATAL: Subcommand is None\n")
@@ -284,4 +276,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Runs neural style with the given arguments.")
+    parser.add_argument("args", action='store',
+    help="Arguments to pass to neural style.")
+
+    parser.add_argument("--attached", "-A", action='store_true', dest='attached',
+    help="Run the program in attached mode.")
+
+    start_conds = parser.parse_args()
+
+    main(start_conds)

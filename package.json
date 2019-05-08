@@ -1,13 +1,13 @@
 {
   "name": "electron-style",
   "productName": "Electron Style",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "An Electron app for the Pytorch implementation of neural style.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
     "prestart": "node ./Tools/prestart.js",
-    "compile": "pyinstaller neural_style.spec --onedir --noconfirm --workpath=Assets/pyinstaller-build-files --distpath=src/bin",
+    "compile": "pyinstaller torchbrain.spec --onedir --noconfirm --workpath=Assets/builds --distpath=src/bin",
     "precompile": "node ./Tools/precompile.js",
     "postcompile": "node ./Tools/copy_license.js",
     "package": "electron-forge package",
@@ -54,7 +54,7 @@
           ".compilerc",
           ".eslintrc",
           ".gitignore",
-          "neural_style.spec",
+          "torchbrain.spec",
           "package-lock.json",
           "requirements.txt"
         ],

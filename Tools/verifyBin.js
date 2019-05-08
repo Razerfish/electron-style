@@ -39,7 +39,7 @@ function compareFiles(dir1, dir2) {
 }
 
 if (fs.existsSync("./out/Electron Style-win32-x64")) {
-    if (fs.existsSync("./src/bin/neural_style")) {
+    if (fs.existsSync("./src/bin/torchbrain")) {
         const missing = compareFiles("./src/bin", "./out/Electron Style-win32-x64");
         if (missing.length !== 0) {
             let failMessage = "Missing file(s): ";
@@ -54,11 +54,11 @@ if (fs.existsSync("./out/Electron Style-win32-x64")) {
             console.error(`${failMessage}\n`.red);
             process.exit(1);
         } else {
-            console.log("All files packages.\n".green);
+            console.log("All files packaged\n".green);
             process.exit(0);
         }
     } else {
-        console.error("No neural style binary found at ./src/bin/neural_style\n".red);
+        console.error("No neural style binary found at ./src/bin/torchbrain\n".red);
         process.exit(1);
     }
 } else {
