@@ -45,7 +45,7 @@
             "name": "Debug Training",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceRoot}/Assets/Scripts/main.py",
+            "program": "${workspaceRoot}/Assets/Scripts/torchbrain.py",
             "console": "integratedTerminal",
             "args": ["neural_style", "{\"subcommand\":\"train\", \"dataset\":\"./Testing_Assets/Testing_Assets/dataset\", \"style_image\":\"./Testing_Assets/Testing_Assets/style_image.jpg\", \"save_model_dir\":\"./Tests/Models\", \"name\":\"Test_Model\", \"cuda\":1}"]
         },
@@ -53,7 +53,7 @@
             "name": "Debug Stylization",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceRoot}/Assets/Scripts/main.py",
+            "program": "${workspaceRoot}/Assets/Scripts/torchbrain.py",
             "console": "integratedTerminal",
             "args": ["neural_style", "{\"subcommand\":\"eval\", \"content_image\":\"./Testing_Assets/Testing_Assets/content.jpg\", \"output_image\":\"./Tests/Test_Output.jpg\", \"model\":\"./Testing_Assets/Testing_Assets/model.pth\", \"cuda\":1}"]
         },
@@ -61,7 +61,7 @@
             "name": "Debug check_cuda",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceRoot}/Assets/Scripts/main.py",
+            "program": "${workspaceRoot}/Assets/Scripts/torchbrain.py",
             "console": "integratedTerminal",
             "args": ["check_cuda"]
         }

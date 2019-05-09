@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['Assets\\Scripts\\main.py'],
+a = Analysis(['Assets\\Scripts\\torchbrain.py'],
              pathex=['C:\\Program Files (x86)\\Windows Kits\\10\\Redist\\10.0.17763.0\\ucrt\\DLLs\\x64'],
              binaries=[],
              datas=[],
