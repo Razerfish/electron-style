@@ -79,7 +79,7 @@ Testing_Assets/*
 src/bin/*
 
 #Pyinstaller build files
-Assets/builds
+Assets/build
 
 #Release builds
 release-builds/*
