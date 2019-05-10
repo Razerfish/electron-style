@@ -27,9 +27,9 @@ function isDev() {
  */
 function createNeuralStyle(args) {
     if (isDev()) {
-        return execFile("./src/bin/torchbrain/torchbrain.exe", ["-A", "neural_style", JSON.stringify(args)]);
+        return execFile("./src/bin/torchbrain/torchbrain.exe", ["neural_style", JSON.stringify(args)]);
     } else {
-        return execFile("./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe", ["-A", "neural_style", JSON.stringify(args)]);
+        return execFile("./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe", ["neural_style", JSON.stringify(args)]);
     }
 }
 
@@ -44,9 +44,9 @@ function cudaAvailable() {
     return new Promise((resolve, reject) => {
         let getCudaProcess;
         if (isDev()) {
-            getCudaProcess = execFile("./src/bin/torchbrain/torchbrain.exe", ["-A", "check_cuda"]);
+            getCudaProcess = execFile("./src/bin/torchbrain/torchbrain.exe", ["check_cuda"]);
         } else {
-            getCudaProcess = execFile("./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe", ["-A", "check_cuda"]);
+            getCudaProcess = execFile("./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe", ["check_cuda"]);
         }
         
         

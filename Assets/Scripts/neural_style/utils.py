@@ -5,33 +5,6 @@ import sys
 import os
 import time
 
-# Check if the program is running in attached mode.
-attached = None
-def set_attached(start_conds):
-    global attached
-    attached = start_conds.attached
-
-first = True
-def log(data):
-    global first
-
-    global attached
-    if attached is None:
-        sys.stderr.write("FATAL: attached has not been set\n")
-        sys.stderr.flush()
-        sys.exit(1)
-
-    if attached:
-        if first:
-            print(data, flush=True)
-            first = False
-        else:
-            input()
-            print(data, flush=True)
-    else:
-        print(data, flush=True)
-
-
 def load_image(filename, size=None, scale=None):
     img = Image.open(filename)
     if size is not None:
@@ -42,27 +15,15 @@ def load_image(filename, size=None, scale=None):
 
 
 def save_image(filename, data):
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Saving image"
-    }))
     img = data.clone().clamp(0, 255).numpy()
     img = img.transpose(1, 2, 0).astype("uint8")
     img = Image.fromarray(img)
     try:
         img.save(filename)
     except Exception as e:
-        log(json.dumps({
-            "type":"error",
-            "error":e
-        }))
         sys.stderr(e)
         sys.stderr.flush()
         sys.exit(1)
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Image saved"
-    }))
 
 
 def gram_matrix(y):
@@ -82,12 +43,6 @@ def normalize_batch(batch):
 
 class InputArgs():
     def __init__(self, data):
-        #Report status
-        log(json.dumps({
-            "type":"status_update",
-            "status":"Parsing args"
-        }))
-
         cuda_available = torch.cuda.is_available()
 
         if data["subcommand"] == "eval":
@@ -199,8 +154,3 @@ class InputArgs():
         
         else:
             sys.exit("FATAL: Unknown subcommand: " + str(data["subcommand"]))
-
-        log(json.dumps({
-            "type":"status_update",
-            "status":"Done parsing args"
-        }))

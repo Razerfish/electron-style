@@ -13,7 +13,6 @@ from torchvision import transforms
 import torch.onnx
 
 import neural_style.utils as utils
-from neural_style.utils import log
 from neural_style.transformer_net import TransformerNet
 from neural_style.vgg import Vgg16
 
@@ -30,10 +29,6 @@ def check_paths(args):
 
 
 def train(args):
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Setting up training"
-    }))
     device = torch.device("cuda" if args.cuda else "cpu")
 
     np.random.seed(args.seed)
@@ -45,17 +40,8 @@ def train(args):
         transforms.ToTensor(),
         transforms.Lambda(lambda x: x.mul(255))
     ])
-
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Loading dataset"
-    }))
     
     train_dataset = datasets.ImageFolder(args.dataset, transform)
-    log(json.dumps({
-        "type":"dataset_info",
-        "dataset_length":len(train_dataset) * args.epochs
-    }))
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size)
 
     transformer = TransformerNet().to(device)
@@ -68,16 +54,6 @@ def train(args):
         transforms.Lambda(lambda x: x.mul(255))
     ])
 
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Dataset loaded"
-    }))
-
-    log(json.dumps({
-    "type":"status_update",
-    "status":"Loading image"
-    }))
-
     style = utils.load_image(args.style_image, size=args.style_size)
     style = style_transform(style)
     style = style.repeat(args.batch_size, 1, 1, 1).to(device)
@@ -85,22 +61,7 @@ def train(args):
     features_style = vgg(utils.normalize_batch(style))
     gram_style = [utils.gram_matrix(y) for y in features_style]
 
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Image loaded"
-    }))
-
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Training setup done"
-    }))
-
     progress_count = 0
-
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Starting training"
-    }))
 
     for e in range(args.epochs):
         transformer.train()
@@ -136,12 +97,6 @@ def train(args):
             agg_content_loss += content_loss.item()
             agg_style_loss += style_loss.item()
 
-            log(json.dumps({
-                "type":"training_progress",
-                "progress":str(progress_count),
-                "percent":str(round(progress_count / (len(train_dataset) * args.epochs) * 100, 2))
-            }))
-
             progress_count = progress_count + args.batch_size
 
             if args.checkpoint_model_dir is not None and (batch_id + 1) % args.checkpoint_interval == 0:
@@ -155,16 +110,7 @@ def train(args):
                 torch.save(transformer.state_dict(), ckpt_model_path)
                 transformer.to(device).train()
 
-    log(json.dumps({
-        "type":"status_update",
-        "status":"training done"
-    }))
-
     # save model
-    log(json.dumps({
-        "type":"status_update",
-        "status":"saving model"
-    }))
     transformer.eval().cpu()
     if args.name is None:
         save_model_filename = str(os.path.normpath(os.path.basename(args.style_image))
@@ -175,19 +121,8 @@ def train(args):
     save_model_path = os.path.join(args.save_model_dir, save_model_filename)
     torch.save(transformer.state_dict(), save_model_path)
 
-    log(json.dumps({
-        "type":"status_update",
-        "status":"model saved"
-    }))
-
-
 def stylize(args):
     device = torch.device("cuda" if args.cuda else "cpu")
-
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Loading style image"
-    }))
 
     content_image = utils.load_image(args.content_image, scale=args.content_scale)
     content_transform = transforms.Compose([
@@ -196,16 +131,6 @@ def stylize(args):
     ])
     content_image = content_transform(content_image)
     content_image = content_image.unsqueeze(0).to(device)
-
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Done loading style image"
-    }))
-
-    log(json.dumps({
-    "type":"status_update",
-    "status":"Starting stylization"
-    }))
 
     if args.model.endswith(".onnx"):
         output = stylize_onnx_caffe2(content_image, args)
@@ -224,11 +149,6 @@ def stylize(args):
                 output = torch.onnx._export(style_model, content_image, args.export_onnx).cpu()
             else:
                 output = style_model(content_image).cpu()
-
-    log(json.dumps({
-        "type":"status_update",
-        "status":"Done stylizing"
-    }))
 
     utils.save_image(args.output_image, output[0])
 
@@ -252,12 +172,6 @@ def stylize_onnx_caffe2(content_image, args):
 
 
 def main(start_conds):
-    # Check if running in attached mode, and if so wait for parent process to be ready for output.
-    if start_conds.attached:
-        input()
-
-    utils.set_attached(start_conds)
-
     args = utils.InputArgs(json.loads(start_conds.args))
     if args.subcommand is None:
         sys.stderr.write("FATAL: Subcommand is None\n")
@@ -279,9 +193,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Runs neural style with the given arguments.")
     parser.add_argument("args", action='store',
     help="Arguments to pass to neural style.")
-
-    parser.add_argument("--attached", "-A", action='store_true', dest='attached',
-    help="Run the program in attached mode.")
 
     start_conds = parser.parse_args()
 
