@@ -5,7 +5,7 @@ import os
 import sys
 import time
 import re
-import jsong
+import json
 
 import numpy as np
 import torch
@@ -177,13 +177,9 @@ def stylize_onnx_caffe2(content_image, args):
 def main(start_conds):
     args = utils.InputArgs(json.loads(start_conds.args))
     if args.subcommand is None:
-        sys.stderr.write("FATAL: Subcommand is None\n")
-        sys.stderr.flush()
-        sys.exit(1)
+        raise Exception("Subcommand is None")
     if args.cuda and not torch.cuda.is_available():
-        sys.stderr.write("FATAL: CUDA is not available, try running on CPU\n")
-        sys.stderr.flush()
-        sys.exit(1)
+        raise Exception("CUDA is not available")
 
     if args.subcommand == "train":
         check_paths(args)

@@ -20,10 +20,6 @@ args = parser.parse_args()
 if args.mode == "check_cuda":
     check_cuda.check_cuda()
     sys.exit(0)
-elif args.mode == "neural_style":
+else:
     neural_style.neural_style(args)
     sys.exit(0)
-else:
-    sys.stderr.write("Unknown mode: " + str(args.mode))
-    sys.stderr.flush()
-    sys.exit(1)

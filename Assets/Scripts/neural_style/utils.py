@@ -18,12 +18,7 @@ def save_image(filename, data):
     img = data.clone().clamp(0, 255).numpy()
     img = img.transpose(1, 2, 0).astype("uint8")
     img = Image.fromarray(img)
-    try:
-        img.save(filename)
-    except Exception as e:
-        sys.stderr(e)
-        sys.stderr.flush()
-        sys.exit(1)
+    img.save(filename)
 
 
 def gram_matrix(y):
@@ -51,7 +46,7 @@ class InputArgs():
             if os.path.isfile(str(data["content_image"])):
                 self.content_image = str(data["content_image"])
             else:
-                sys.exit("FATAL: Content image could not be found")
+                raise Exception("Content image could not be found at {}".format(str(data["content_image"])))
             
             try:
                 self.content_scale = float(data["content_scale"])
@@ -63,7 +58,7 @@ class InputArgs():
             if os.path.isfile(str(data["model"])):
                 self.model = str(data["model"])
             else:
-                sys.exit("FATAL: Model file could not be found")
+                raise Exception("Model file could not be found at {}".format(str(data["model"])))
 
             if cuda_available:
                 self.cuda = int(data["cuda"])
@@ -91,12 +86,12 @@ class InputArgs():
             if os.path.isdir(str(data["dataset"])):
                 self.dataset = str(data["dataset"])
             else:
-                sys.exit("FATAL: Dataset not found")
+                raise Exception("Dataset not found at {}".format(str(data["dataset"])))
 
             if os.path.isfile(str(data["style_image"])):
                 self.style_image = str(data["style_image"])
             else:
-                sys.exit("FATAL: Style image not found")
+                raise Exception("Style image not found at {}".format(str(data["style_image"])))
 
             self.save_model_dir = str(data["save_model_dir"])
 
@@ -153,4 +148,4 @@ class InputArgs():
                 self.checkpoint_interval = 2000
         
         else:
-            sys.exit("FATAL: Unknown subcommand: " + str(data["subcommand"]))
+            raise Exception("Unknown subcommand: {}".format(str(data["subcommand"])))
