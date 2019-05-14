@@ -19,77 +19,6 @@ function isDev() {
     return process.mainModule.filename.indexOf('app.asar') === -1;
 }
 
-/**
- * @function createNeuralStyle
- * @description Starts neural style with the provided arguments.
- * @param {*} args Json object. Arguments to pass to neural style.
- * @returns A neural style childprocess.
- */
-function createNeuralStyle(args) {
-    if (isDev()) {
-        return execFile("./src/bin/torchbrain/torchbrain.exe", ["neural_style", JSON.stringify(args)]);
-    } else {
-        return execFile("./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe", ["neural_style", JSON.stringify(args)]);
-    }
-}
-
-/* eslint-disable no-unused-vars, no-param-reassign */
-/**
- * @function cudaAvailable
- * @description Checks if CUDA acceleration is available to
- * neural style.
- * @returns True if CUDA is available, false if it is not.
- */
-function cudaAvailable() {
-    return new Promise((resolve, reject) => {
-        let getCudaProcess;
-        if (isDev()) {
-            getCudaProcess = execFile("./src/bin/torchbrain/torchbrain.exe", ["check_cuda"]);
-        } else {
-            getCudaProcess = execFile("./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe", ["check_cuda"]);
-        }
-        
-        
-        getCudaProcess.stderr.on('data', (data) => {
-            reject(data.toString());
-        });
-
-        getCudaProcess.stdout.on('data', (data) => {
-            data = JSON.parse(data.toString());
-            if (data.cuda_available === true) {
-                resolve(true);
-            } else {
-                resolve(false);
-            }
-        });
-    
-        // Alert the process that we're ready for output.
-        getCudaProcess.stdin.write("\n");
-    });
-}
-/* eslint-enable no-unused-vars, no-param-reassign */
-
-let dataset = 0;
-/**
- * @function parseData
- * @description Parses data from neural style.
- * @param {*} data Json object.
- * @returns Data parsed into a readable form.
- */
-function parseData(data) {
-    if (data.type === "status_update") {
-        return `Status: ${data.status}`;
-    } else if (data.type === "dataset_info") {
-        dataset = data.dataset_length;
-        return `Dataset length: ${dataset}`;
-    } else if (data.type === "training_progress") {
-        return `Progress: ${data.progress}/${dataset} ${data.percent}%`;
-    } else if (data.type === "log") {
-        console.log(data.message);
-    }
-    return `Unknown type: ${data.type}`;
-}
-
 function ensureModel() {
     return new Promise((resolve, reject) => {
         // Disable mode select buttons.
@@ -234,50 +163,16 @@ function loadTraining() {
     // Show training
     $("#training").css("display", "block");
 
-    let args;
-    if (isDev()) {
-        args = {
-            subcommand: "train",
-            dataset: "./Testing_Assets/Testing_Assets/dataset",
-            style_image: "./Testing_Assets/Testing_Assets/style_image.jpg",
-            save_model_dir: path.join(os.homedir(), "Desktop", "Models"),
-            name: "Test_Model",
-            cuda: 1
-        };
-    } else {
-        args = {
-            subcommand: "train",
-            dataset: "resources/app.asar.unpacked/Testing_Assets/Testing_Assets/dataset",
-            style_image: "resources/app.asar.unpacked/Testing_Assets/Testing_Assets/style_image.jpg",
-            save_model_dir: path.join(os.homedir(), "Desktop", "Models"),
-            name: "Test_Model",
-            cuda: 1
-        };
+    /* Training sample arguments
+    {
+        subcommand: "train",
+        dataset: "./Testing_Assets/Testing_Assets/dataset",
+        style_image: "./Testing_Assets/Testing_Assets/style_image.jpg",
+        save_model_dir: path.join(os.homedir(), "Desktop", "Models"),
+        name: "Test_Model",
+        cuda: 1
     }
-
-    const neuralStyle = createNeuralStyle(args);
-
-    neuralStyle.stdout.on('data', (data) => {
-        $("#training_databox").text(parseData(JSON.parse(data)));
-
-        neuralStyle.stdin.write("\n");
-    });
-
-    neuralStyle.stderr.on('data', (data) => {
-        console.error(data.toString());
-    });
-
-    neuralStyle.on('exit', (code) => {
-        console.log(`Neural style exited with code: ${code.toString()}`);
-        if (!code === 0) {
-            $("#training_infobox").text("Fatal Error");
-        } else {
-            $("#training_infobox").text("Done");
-        }
-    });
-
-    // Start neural style
-    neuralStyle.stdin.write("\n");
+    */
 }
 
 function loadStylize() {
@@ -287,48 +182,15 @@ function loadStylize() {
     // Show stylize
     $("#stylize").css("display", "block");
 
-    let args;
-    if (isDev()) {
-        args = {
-            subcommand: "eval",
-            content_image: "./Testing_Assets/Testing_Assets/content.jpg",
-            output_image: path.join(os.homedir(), "Desktop", "Test_Output.jpg"),
-            model: "./Testing_Assets/Testing_Assets/model.pth",
-            cuda: 1
-        };
-    } else {
-        args = {
-            subcommand: "eval",
-            content_image: "resources/app.asar.unpacked/Testing_Assets/Testing_Assets/content.jpg",
-            output_image: path.join(os.homedir(), "Desktop", "Test_Output.jpg"),
-            model: "resources/app.asar.unpacked/Testing_Assets/Testing_Assets/model.pth",
-            cuda: 1
-        };
+    /* Stylize sample arguments
+    {
+        subcommand: "eval",
+        content_image: "./Testing_Assets/Testing_Assets/content.jpg",
+        output_image: path.join(os.homedir(), "Desktop", "Test_Output.jpg"),
+        model: "./Testing_Assets/Testing_Assets/model.pth",
+        cuda: 1
     }
-
-    const neuralStyle = createNeuralStyle(args);
-
-    neuralStyle.stdout.on('data', (data) => {
-        $("#stylize_databox").text(parseData(JSON.parse(data)));
-
-        neuralStyle.stdin.write("\n");
-    });
-
-    neuralStyle.stderr.on('data', (data) => {
-        console.error(data.toString());
-    });
-
-    neuralStyle.on('exit', (code) => {
-        console.log(`Neural style exited with code: ${code.toString()}`);
-        if (!code === 0) {
-            $("#stylize_infobox").text("Fatal Error");
-        } else {
-            $("#stylize_infobox").text("Done");
-        }
-    });
-
-    // Start nerual style
-    neuralStyle.stdin.write("\n");
+    */
 }
 
 // Ensure that the cwd is correct
