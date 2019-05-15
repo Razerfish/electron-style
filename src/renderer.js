@@ -1,5 +1,7 @@
 const $ = require('jquery');
 const electron = require('electron');
+const helpers = require('./helpers');
+const torchbrain = require('./torchbrain');
 
 const execFile = require("child_process").execFile;
 
@@ -7,17 +9,6 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const https = require('https');
-
-/**
- * @function isDev
- * @description Checks if the main process is running in a development or
- * release environment.
- * @returns True if in a development environment, false if in a release
- * environment.
- */
-function isDev() {
-    return process.mainModule.filename.indexOf('app.asar') === -1;
-}
 
 function ensureModel() {
     return new Promise((resolve, reject) => {
@@ -194,7 +185,7 @@ function loadStylize() {
 }
 
 // Ensure that the cwd is correct
-if (!isDev()) {
+if (!helpers.isDev()) {
     process.chdir(path.join(__dirname, "../../.."));
 }
 
