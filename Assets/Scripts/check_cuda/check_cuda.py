@@ -3,7 +3,8 @@ import torch
 
 def main():
     print(json.dumps({
-        "cuda_available": torch.cuda.is_available()
+        "type": "cuda_available",
+        "data": True
     }), flush=True)
 
 if __name__ == "__main__":
