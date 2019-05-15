@@ -2,6 +2,11 @@ const helpers = require('./helpers');
 
 const execFile = require('child_process').execFile;
 
+/**
+ * @function checkCuda
+ * @description Checks if CUDA is available on the host system.
+ * @returns A promise that resolves true if cuda is available, false if it isn't or can reject with an error.
+ */
 function checkCuda() {
     return new Promise((resolve, reject) => {
         // Get location of torchbrain binary
