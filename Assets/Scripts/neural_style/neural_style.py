@@ -1,6 +1,3 @@
-# Make sure that neural style fails gracefully to prevent pyinstaller from creating a dialogue
-import neural_style.failsafe
-
 import os
 import sys
 import time
