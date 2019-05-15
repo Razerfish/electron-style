@@ -185,7 +185,7 @@ function loadStylize() {
 }
 
 // Ensure that the cwd is correct
-if (!helpers.isDev()) {
+if (!helpers.isDev) {
     process.chdir(path.join(__dirname, "../../.."));
 }
 
