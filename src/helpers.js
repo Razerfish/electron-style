@@ -2,7 +2,7 @@
 let isDev;
 try {
     isDev = process.mainModule.filename.indexOf('app.asar') === -1;
-} catch {
+} catch (err) {
     isDev = true;
 }
 

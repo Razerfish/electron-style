@@ -38,7 +38,7 @@ function checkCuda() {
                 } else {
                     reject(JSON.stringify(parsedData));
                 }
-            } catch {
+            } catch (err) {
                 reject(data.toString());
             }
         });
