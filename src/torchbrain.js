@@ -52,7 +52,7 @@ function checkCuda() {
  * @param {*} args JSON object. Arguments to pass to Neural Style.
  * @returns Childprocess with Neural Style running.
  */
-async function createNeuralProcess(args) {
+function createNeuralProcess(args) {
     // Get torchbrain binary location.
     let torchPath;
     if (helpers.isDev) {
@@ -62,7 +62,7 @@ async function createNeuralProcess(args) {
     }
 
     // Verify that binary exists.
-    if (await helpers.verifyPath(torchPath)) {
+    if (helpers.verifyPath(torchPath)) {
         // If the binary is present, then create and return Neural Style process.
         return execFile(torchPath, ["neural_style", JSON.stringify(args)]);
     } else {
