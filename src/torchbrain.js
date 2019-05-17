@@ -1,6 +1,7 @@
 const helpers = require('./helpers');
 
 const execFile = require('child_process').execFile;
+const fs = require('fs');
 
 /**
  * @function checkCuda
@@ -43,6 +44,39 @@ function checkCuda() {
             }
         });
     });
+}
+
+/**
+ * @function createNeuralProcess
+ * @description Creates a Neural style process.
+ * @param {*} args JSON object. Arguments to pass to Neural Style.
+ * @returns Childprocess with Neural Style running.
+ */
+async function createNeuralProcess(args) {
+    // Get torchbrain binary location.
+    let torchPath;
+    if (helpers.isDev) {
+        torchPath = "./src/bin/torchbrain/torchbrain.exe";
+    } else {
+        torchPath = "./resources/app.asar.unpacked/src/bin/torchbrain/torchbrain.exe";
+    }
+
+    // Verify that binary exists.
+    if (await helpers.verifyPath(torchPath)) {
+        // If the binary is present, then create and return Neural Style process.
+        return execFile(torchPath, ["neural_style", JSON.stringify(args)]);
+    } else {
+        // Otherwise, throw an error.
+        throw new Error("Could not find torchbrain binary");
+    }
+}
+
+class NeuralStyle extends EventEmitter {
+    constructor(args) {
+        this.dataset;
+        this.errors = [];
+        this.
+    }
 }
 
 module.exports = {
