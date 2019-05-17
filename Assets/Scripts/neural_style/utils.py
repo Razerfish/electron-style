@@ -8,19 +8,8 @@ import time
 def log(data):
     print(data, flush=True)
 
-def error(data):
-    print(data, file=sys.stderr, flush=True)
-
-def status_update(data):
-    log(json.dumps({
-        "type": "status",
-        "data": json.dumps(data)
-    }))
-
 def load_image(filename, size=None, scale=None):
-    status_update({"task": "image_file_loading", "action": "start"})
     img = Image.open(filename)
-    status_update({"task": "image_file_loading", "action": "finish"})
 
     if size is not None:
         img = img.resize((size, size), Image.ANTIALIAS)
@@ -30,29 +19,13 @@ def load_image(filename, size=None, scale=None):
 
 
 def save_image(filename, data):
-    status_update({"task": "exporting_image", "action": "start"})
-
-    status_update({"task": "rendering_image", "action": "start"})
-
-    status_update({"task": "clamping_data", "action": "start"})
     img = data.clone().clamp(0, 255).numpy()
-    status_update({"task": "clamping_data", "action": "finish"})
     
-    status_update({"task": "transposing_image", "action": "start"})
     img = img.transpose(1, 2, 0).astype("uint8")
-    status_update({"task": "transposing_image", "action": "finish"})
 
-    status_update({"task": "creating_image_from_array", "action": "start"})
     img = Image.fromarray(img)
-    status_update({"task": "creating_image_from_array", "action": "finish"})
 
-    status_update({"task": "rendering_image", "action": "finish"})
-
-    status_update({"task": "saving_image_to_file", "action": "start"})
     img.save(filename)
-    status_update({"task": "saving_image_to_file", "action": "finish"})
-
-    status_update({"task": "exporting_image", "action": "finish"})
 
 
 def gram_matrix(y):
@@ -72,8 +45,6 @@ def normalize_batch(batch):
 
 class InputArgs():
     def __init__(self, data):
-        status_update({"task": "argument_parsing", "action": "start"})
-
         cuda_available = torch.cuda.is_available()
 
         if data["subcommand"] == "eval":
@@ -185,5 +156,3 @@ class InputArgs():
         
         else:
             raise Exception("Unknown subcommand: {}".format(str(data["subcommand"])))
-
-        status_update({"task": "argument_parsing", "action": "finish"})
