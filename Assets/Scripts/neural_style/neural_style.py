@@ -29,6 +29,11 @@ def check_paths(args):
         sys.exit(e)
 
 def train(args):
+    log(json.dumps({
+        "type": "status",
+        "data": "start_train"
+    }))
+    
     device = torch.device("cuda" if args.cuda else "cpu")
 
     np.random.seed(args.seed)
@@ -42,7 +47,12 @@ def train(args):
     ])
     
     train_dataset = datasets.ImageFolder(args.dataset, transform)
-    log(json.dumps({"type": "dataset_length", "data": len(train_dataset) * args.epochs}))
+    log(json.dumps({"type": "dataset_length", "data": json.dumps({
+            "length": len(train_dataset),
+            "epochs": args.epochs,
+            "effective_length": len(train_dataset) * args.epochs
+        })
+    }))
 
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size)
 
@@ -69,6 +79,11 @@ def train(args):
     gram_style = [utils.gram_matrix(y) for y in features_style]
 
     progress_count = 0
+
+    log(json.dumps({
+        "type": "status",
+        "data": "training"
+    }))
 
     for e in range(args.epochs):
         transformer.train()
@@ -105,11 +120,8 @@ def train(args):
             agg_style_loss += style_loss.item()
 
             log(json.dumps({
-                "type": "training_progress",
-                "data": json.dumps({
-                    "progress": int(progress_count),
-                    "percent": round(progress_count / (len(train_dataset) * args.epochs) * 100, 2)
-                })
+                "type": "train_progress",
+                "data": int(progress_count)
             }))
 
             progress_count = progress_count + args.batch_size
@@ -137,7 +149,17 @@ def train(args):
     
     torch.save(transformer.state_dict(), save_model_path)
 
+    log(json.dumps({
+        "type": "status",
+        "data": "train_done"
+    }))
+
 def stylize(args):
+    log(json.dumps({
+        "type": "status",
+        "data": "style"
+    }))
+
     device = torch.device("cuda" if args.cuda else "cpu")
 
     content_image = utils.load_image(args.content_image, scale=args.content_scale)
@@ -171,6 +193,11 @@ def stylize(args):
                 output = style_model(content_image).cpu()
 
     utils.save_image(args.output_image, output[0])
+
+    log(json.dumps({
+        "type": "status",
+        "data": "style_done"
+    }))
 
 def stylize_onnx_caffe2(content_image, args):
     """
