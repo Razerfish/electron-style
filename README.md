@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Razerfish/electron-style.svg?branch=master)](https://travis-ci.org/Razerfish/electron-style)
 # Electron Style
 An Electron app for the pytorch implementation of neural style.
 
