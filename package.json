@@ -6,7 +6,6 @@
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
-    "prestart": "node ./Tools/prestart.js",
     "compile": "pyinstaller torchbrain.spec --onedir --noconfirm --workpath=Assets/builds --distpath=src/bin",
     "precompile": "node ./Tools/precompile.js",
     "postcompile": "node ./Tools/copy_license.js",
